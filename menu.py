@@ -4,6 +4,8 @@ from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
 
+from board import Game
+
 
 class UI(QtWidgets.QWidget):
 
@@ -12,8 +14,10 @@ class UI(QtWidgets.QWidget):
         self.home = QWidget()
 
         self.MenuUI()
+        self.game = Game()
 
         self.StackedWidgets.addWidget(self.home)
+        self.StackedWidgets.addWidget(self.game)
 
 
     def MenuUI(self):

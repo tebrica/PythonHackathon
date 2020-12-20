@@ -4,6 +4,7 @@ from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui
 import sys, random
 from menu import UI
+from board import Game
 
 class CrazyCars(QMainWindow, UI):
 
@@ -39,7 +40,7 @@ class CrazyCars(QMainWindow, UI):
             event.ignore()
 
     def openGame(self):
-        print("")
+        self.StackedWidgets.setCurrentIndex(1)
 
     def openInstructions(self):
         print("")
