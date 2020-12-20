@@ -21,23 +21,39 @@ from PyQt5.QtWidgets import (
     QGraphicsView
 )
 
-PLAYER_SPEED            = 6
+PLAYER_SPEED            = 10
 FRAME_TIME_MS           = 16  # ms/frame
 
 class Player(QGraphicsPixmapItem):
-    def __init__(self, parent = None):
+    def __init__(self,  KeyLeft, KeyRight, KeyUp, KeyDown,pic,picl,picr, parent = None ,):
         QGraphicsPixmapItem.__init__(self,parent)
-        self.setPixmap(QPixmap("auto.png"))
+        self.left = KeyLeft
+        self.right = KeyRight
+        self.up = KeyUp
+        self.down = KeyDown
+        self.pic = pic
+        self.picl = picl
+        self.picr = picr
+
 
     def game_update(self, keys_pressed):
         dx = 0
         dy = 0
-        if Qt.Key_Left in keys_pressed:
+        self.dimX = 120
+        self.dimY = 190
+        player = QPixmap(self.pic)
+        self.setPixmap(player.scaled(self.dimX, self.dimY))
+
+        if self.left in keys_pressed:
             dx -= PLAYER_SPEED
-        if Qt.Key_Right in keys_pressed:
+            player = QPixmap(self.picl)
+            self.setPixmap(player.scaled(self.dimX, self.dimY))
+        if self.right in keys_pressed:
             dx += PLAYER_SPEED
-        if Qt.Key_Up in keys_pressed:
+            player = QPixmap(self.picr)
+            self.setPixmap(player.scaled(self.dimX, self.dimY))
+        if self.up in keys_pressed:
             dy -= PLAYER_SPEED
-        if Qt.Key_Down in keys_pressed:
+        if self.down in keys_pressed:
             dy += PLAYER_SPEED
         self.setPos(self.x()+dx, self.y()+dy)

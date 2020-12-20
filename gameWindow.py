@@ -1,7 +1,11 @@
 import sys
 import Car
 import Object
-
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
+from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
+from PyQt5.QtCore import Qt
+from multiprocessing import Queue, Process
+from Car import Player
 from PyQt5.QtCore import (
     Qt,
     QBasicTimer,
@@ -32,36 +36,51 @@ Object_SPEED            = 10  # pix/frame
 Object_FRAMES           = 50
 FRAME_TIME_MS           = 16  # ms/frame
 
-
 class Scene(QGraphicsScene):
+
+    BoardWidth = 1200
+    BoardHeight = 850
+
     def __init__(self, parent = None):
+        super().__init__(parent)
+
+        self.player = Car.Player(Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "player1.png", "player1_left.png",
+                                 "player1_right.png")
+        self.player1 = Car.Player(Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "player2.png", "player2_left.png",
+                                  "player2_right.png")
+        self.keys_pressed = set()
+
         QGraphicsScene.__init__(self, parent)
 
         # hold the set of keys we're pressing
-        self.keys_pressed = set()
 
         # use a timer to get 60Hz refresh (hopefully)
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
 
         bg = QGraphicsRectItem()
-        bg.setRect(-1,-1,SCREEN_WIDTH+2,SCREEN_HEIGHT+2)
+        bg.setRect(-1, -1, SCREEN_WIDTH + 2, SCREEN_HEIGHT + 2)
 
-        self.player = Car.Player()
-        self.player.setPos((SCREEN_WIDTH-self.player.pixmap().width())/2,
-                           (SCREEN_HEIGHT-self.player.pixmap().height())/2)
-        self.Objects = [Object.Object(PLAYER_Object_X_OFFSETS[0],PLAYER_Object_Y)]
+        self.player.setPos((SCREEN_WIDTH - self.player.pixmap().width()) / 4,
+                           (SCREEN_HEIGHT) - 250)
+
+        self.player1.setPos((SCREEN_WIDTH - self.player.pixmap().width()) / 4 + (SCREEN_WIDTH / 3),
+                            (SCREEN_HEIGHT) - 250)
+
+        self.Objects = [Object.Object(), Object.Object(), Object.Object(), Object.ObjectCar(), Object.ObjectCar()]
         for b in self.Objects:
-            b.setPos(SCREEN_WIDTH,SCREEN_HEIGHT)
+            b.setPos(SCREEN_WIDTH, SCREEN_HEIGHT)
             self.addItem(b)
         self.addItem(self.player)
+        self.addItem(self.player1)
 
         self.view = QGraphicsView(self)
         self.view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.view.show()
-        self.view.setFixedSize(SCREEN_WIDTH,SCREEN_HEIGHT)
-        self.setSceneRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT)
+        self.view.setFixedSize(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.setSceneRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
@@ -75,6 +94,9 @@ class Scene(QGraphicsScene):
 
     def game_update(self):
         self.player.game_update(self.keys_pressed)
+        for b in self.Objects:
+            b.game_update()
+        self.player1.game_update(self.keys_pressed)
         for b in self.Objects:
             b.game_update()
 
