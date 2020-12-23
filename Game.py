@@ -6,6 +6,7 @@ from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt
 from multiprocessing import Queue, Process
 from player import Player
+import time, random
 from PyQt5.QtCore import (
     Qt,
     QBasicTimer,
@@ -84,8 +85,18 @@ class igra(QFrame, QGraphicsScene):
 
         #dva igraca
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "player2.png", "player2_left.png",
-                                  "player2_right.png",(SCREEN_WIDTH / 4 )+ (SCREEN_WIDTH) / 3,((SCREEN_HEIGHT) - 250))
-        self.player2 = Player(self, 270, 650, "player2.png")
+                                  "player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
+        self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "player1.png", "player1_left.png",
+                                 "player1_right.png", (SCREEN_WIDTH / 2 )+200,((SCREEN_HEIGHT) - 250))
+
+        self.Objects = [Object.Object(self, 150, 365),
+                        Object.Object(self, 365, 580),
+                        Object.Object(self, 580, 795),
+                        Object.Object(self, 795, 1000),
+                        Object.Object(self, 500, 800),
+                        Object.Object(self, 200, 500),
+                        Object.ObjectCar(self, 150, 580),
+                        Object.ObjectCar(self, 580, 1000)]
 
         self.keys_pressed = set()
 
@@ -111,6 +122,9 @@ class igra(QFrame, QGraphicsScene):
 
     def game_update(self):
         self.player1.game_update(self.keys_pressed)
+        self.player.game_update(self.keys_pressed)
+        for b in self.Objects:
+            b.game_update()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

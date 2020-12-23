@@ -22,8 +22,10 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtWidgets import QLabel
 
-PLAYER_SPEED            = 10
+PLAYER_SPEED            = 8
 FRAME_TIME_MS           = 16  # ms/frame
+SCREEN_WIDTH            = 1200
+SCREEN_HEIGHT           = 850
 
 class Player(QLabel, QGraphicsPixmapItem):
 
@@ -32,8 +34,8 @@ class Player(QLabel, QGraphicsPixmapItem):
         super(Player, self).__init__(parent)
 
         player = QPixmap(pic)
-        self.dimX = 120
-        self.dimY = 190
+        self.dimX = 90
+        self.dimY = 170
         self.left = KeyLeft
         self.right = KeyRight
         self.up = KeyUp
@@ -52,17 +54,22 @@ class Player(QLabel, QGraphicsPixmapItem):
         player = QPixmap(self.pic)
         self.setPixmap(player.scaled(self.dimX, self.dimY))
 
+        #if newX < Board.BoardWidth - 330 and newX > 220:
         if self.left in keys_pressed:
-            dx -= PLAYER_SPEED
-            player = QPixmap(self.picl)
-            self.setPixmap(player.scaled(self.dimX, self.dimY))
+            if self.x() > 150:
+                dx -= PLAYER_SPEED
+                player = QPixmap(self.picl)
+                self.setPixmap(player.scaled(self.dimX, self.dimY))
         if self.right in keys_pressed:
-            dx += PLAYER_SPEED
-            player = QPixmap(self.picr)
-            self.setPixmap(player.scaled(self.dimX, self.dimY))
+            if self.x() < SCREEN_WIDTH-250:
+                dx += PLAYER_SPEED
+                player = QPixmap(self.picr)
+                self.setPixmap(player.scaled(self.dimX, self.dimY))
         if self.up in keys_pressed:
-            dy -= PLAYER_SPEED
+            if self.y() > 100:
+                dy -= PLAYER_SPEED
         if self.down in keys_pressed:
-            dy += PLAYER_SPEED
+            if self.y() < SCREEN_HEIGHT-200:
+                dy += PLAYER_SPEED
         self.setGeometry(self.x()+dx, self.y()+dy, self.dimX, self.dimY)
 

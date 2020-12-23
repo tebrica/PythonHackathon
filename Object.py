@@ -18,6 +18,7 @@ from PyQt5.QtWidgets import (
     QGraphicsScene,
     QGraphicsView
 )
+from PyQt5.QtWidgets import QLabel
 
 SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
@@ -26,47 +27,54 @@ PLAYER_Object_Y         = 15
 Object_SPEED            = 6 # pix/frame
 ObjectCar_SPEED            = 3 # pix/frame
 ObjectCar_FRAMES           = 360
-Object_FRAMES           = 180
 FRAME_TIME_MS           = 16  # ms/frame
 import random
 
 
-class Object(QGraphicsPixmapItem):
-    def __init__(self, parent = None):
-        QGraphicsPixmapItem.__init__(self,parent)
-        self.setPixmap(QPixmap("Obstacle.png"))
-        self.active = False
-        self.frames = 0
+class Object(QLabel, QGraphicsPixmapItem):
+    def __init__(self, parent, x, y):
+
+        super(Object, self).__init__(parent)
+        self.xPos = x
+        self.yPos = y
+        self.active = True
+        player = QPixmap("Obstacle.png")
+        self.dimX = 100
+        self.dimY = 100
+        self.setPixmap(player.scaled(self.dimX, self.dimY))
+
+    def game_update(self):
+        a = random.randrange(1,2)
+
+        if not self.active:
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-800, -100), self.dimX, self.dimY)
+            self.active = True
+        if self.active:
+            self.setGeometry(self.x(), self.y() + Object_SPEED, self.dimX, self.dimY)
+            if self.y() > 950:
+                self.active = False
+                self.setGeometry(SCREEN_WIDTH, SCREEN_HEIGHT, self.dimX, self.dimY)
+
+
+class ObjectCar(QLabel, QGraphicsPixmapItem):
+    def __init__(self, parent, x, y):
+
+        super(ObjectCar, self).__init__(parent)
+        self.xPos = x
+        self.yPos = y
+        self.active = True
+        player = QPixmap("Obstacle1.png")
+        self.dimX = 150
+        self.dimY = 250
+        self.setPixmap(player.scaled(self.dimX, self.dimY))
 
     def game_update(self):
         if not self.active:
             self.active = True
-            self.setPos(random.randrange(100,1100), -200)
-            self.frames = Object_FRAMES
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-600, -100), self.dimX, self.dimY)
         else:
-            self.setPos(self.x(),self.y()+Object_SPEED)
-            self.frames -= 1
-            if self.frames <= 0:
+            self.setGeometry(self.x(), self.y() + ObjectCar_SPEED, self.dimX, self.dimY)
+            if self.y() > 950:
                 self.active = False
-                self.setPos(SCREEN_WIDTH,SCREEN_HEIGHT)
-
-
-class ObjectCar(QGraphicsPixmapItem):
-    def __init__(self, parent = None):
-        QGraphicsPixmapItem.__init__(self,parent)
-        self.setPixmap(QPixmap("Obstacle1.png"))
-        self.active = False
-        self.frames = 0
-
-    def game_update(self):
-        if not self.active:
-            self.active = True
-            self.setPos(random.randrange(100,1100), -200)
-            self.frames = ObjectCar_FRAMES
-        else:
-            self.setPos(self.x(),self.y()+ObjectCar_SPEED)
-            self.frames -= 1
-            if self.frames <= 0:
-                self.active = False
-                self.setPos(SCREEN_WIDTH,SCREEN_HEIGHT)
+                self.setGeometry(SCREEN_WIDTH, SCREEN_HEIGHT, self.dimX, self.dimY)
 
