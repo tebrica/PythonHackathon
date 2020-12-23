@@ -47,7 +47,7 @@ class Object(QLabel, QGraphicsPixmapItem):
         a = random.randrange(1,2)
 
         if not self.active:
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-800, -100), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1300, -100), self.dimX, self.dimY)
             self.active = True
         if self.active:
             self.setGeometry(self.x(), self.y() + Object_SPEED, self.dimX, self.dimY)
@@ -71,7 +71,7 @@ class ObjectCar(QLabel, QGraphicsPixmapItem):
     def game_update(self):
         if not self.active:
             self.active = True
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-600, -100), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1300, -100), self.dimX, self.dimY)
         else:
             self.setGeometry(self.x(), self.y() + ObjectCar_SPEED, self.dimX, self.dimY)
             if self.y() > 950:

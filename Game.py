@@ -92,11 +92,13 @@ class igra(QFrame, QGraphicsScene):
         self.Objects = [Object.Object(self, 150, 365),
                         Object.Object(self, 365, 580),
                         Object.Object(self, 580, 795),
-                        Object.Object(self, 795, 1000),
+                        Object.Object(self, 700, 900),
                         Object.Object(self, 500, 800),
                         Object.Object(self, 200, 500),
                         Object.ObjectCar(self, 150, 580),
-                        Object.ObjectCar(self, 580, 1000)]
+                        Object.ObjectCar(self, 580, 900),
+                        Object.ObjectCar(self, 150, 580),
+                        Object.ObjectCar(self, 580, 900)]
 
         self.keys_pressed = set()
 
