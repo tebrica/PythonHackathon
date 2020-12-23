@@ -4,7 +4,7 @@ from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
 
-from board import Game
+from Game import Game
 
 
 class UI(QtWidgets.QWidget):

@@ -19,6 +19,7 @@ from PyQt5.QtGui import (
     QPalette
 )
 from PyQt5.QtWidgets import (
+    QFrame,
     QApplication,
     QGraphicsItem,
     QGraphicsPixmapItem,
@@ -36,7 +37,8 @@ Object_SPEED            = 10  # pix/frame
 Object_FRAMES           = 50
 FRAME_TIME_MS           = 16  # ms/frame
 
-class Scene(QGraphicsScene):
+
+class Scene(QGraphicsScene, QFrame):
 
     BoardWidth = 1200
     BoardHeight = 850
@@ -52,19 +54,16 @@ class Scene(QGraphicsScene):
 
         QGraphicsScene.__init__(self, parent)
 
-        # hold the set of keys we're pressing
-
-        # use a timer to get 60Hz refresh (hopefully)
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
 
         bg = QGraphicsRectItem()
         bg.setRect(-1, -1, SCREEN_WIDTH + 2, SCREEN_HEIGHT + 2)
 
-        self.player.setPos((SCREEN_WIDTH - self.player.pixmap().width()) / 4,
+        self.player.setPos((SCREEN_WIDTH - self.player.pixmap().width()) / 4+ (SCREEN_WIDTH) / 3,
                            (SCREEN_HEIGHT) - 250)
 
-        self.player1.setPos((SCREEN_WIDTH - self.player.pixmap().width()) / 4 + (SCREEN_WIDTH / 3),
+        self.player1.setPos((SCREEN_WIDTH - self.player.pixmap().width()) / 4 ,
                             (SCREEN_HEIGHT) - 250)
 
         self.Objects = [Object.Object(), Object.Object(), Object.Object(), Object.ObjectCar(), Object.ObjectCar()]

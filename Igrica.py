@@ -4,7 +4,7 @@ from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui
 import sys, random
 from menu import UI
-from board import Game
+from Game import Game
 
 class CrazyCars(QMainWindow, UI):
 
