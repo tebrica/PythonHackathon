@@ -44,7 +44,6 @@ class Object(QLabel, QGraphicsPixmapItem):
         self.setPixmap(player.scaled(self.dimX, self.dimY))
 
     def game_update(self):
-        a = random.randrange(1,2)
 
         if not self.active:
             self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1300, -100), self.dimX, self.dimY)

@@ -33,7 +33,6 @@ class Player(QLabel, QGraphicsPixmapItem):
 
         super(Player, self).__init__(parent)
 
-        player = QPixmap(pic)
         self.dimX = 90
         self.dimY = 170
         self.left = KeyLeft
@@ -43,6 +42,7 @@ class Player(QLabel, QGraphicsPixmapItem):
         self.pic = pic
         self.picl = picl
         self.picr = picr
+        player = QPixmap(pic)
         self.setPixmap(player.scaled(self.dimX, self.dimY))
         self.setGeometry(x, y, self.dimX, self.dimY)
 

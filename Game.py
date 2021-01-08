@@ -33,7 +33,6 @@ class Game(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
         self.initUI()
 
     def initUI(self):
@@ -56,7 +55,6 @@ class Game(QMainWindow):
 
     # method for centering main window
     def center(self):
-
         screen = QDesktopWidget().screenGeometry()
         size = self.geometry()
         self.move((screen.width() - size.width()) / 2,
@@ -65,15 +63,9 @@ class Game(QMainWindow):
 
 SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
-PLAYER_SPEED            = 3   # pix/frame
-PLAYER_Object_X_OFFSETS = [0,45]
-PLAYER_Object_Y         = 15
-Object_SPEED            = 10  # pix/frame
-Object_FRAMES           = 50
 FRAME_TIME_MS           = 16  # ms/frame
 
 class igra(QFrame, QGraphicsScene):
-
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -81,13 +73,11 @@ class igra(QFrame, QGraphicsScene):
         self.init_board()
 
     def init_board(self):
-        self.q = Queue()
-
         #dva igraca
+        self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "player1.png", "player1_left.png",
+                                 "player1_right.png", (SCREEN_WIDTH / 2) + 200, ((SCREEN_HEIGHT) - 250))
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "player2.png", "player2_left.png",
                                   "player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
-        self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "player1.png", "player1_left.png",
-                                 "player1_right.png", (SCREEN_WIDTH / 2 )+200,((SCREEN_HEIGHT) - 250))
 
         self.Objects = [Object.Object(self, 150, 365),
                         Object.Object(self, 365, 580),
@@ -101,17 +91,14 @@ class igra(QFrame, QGraphicsScene):
                         Object.ObjectCar(self, 580, 900)]
 
         self.keys_pressed = set()
-
-        self.startProcess()
-
         self.setFocusPolicy(Qt.StrongFocus)
-
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
 
     def startProcess(self):
         self.p = Process()
         self.p.start()
+
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
 
@@ -127,8 +114,3 @@ class igra(QFrame, QGraphicsScene):
         self.player.game_update(self.keys_pressed)
         for b in self.Objects:
             b.game_update()
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    scene = igra()
-    sys.exit(app.exec_())
