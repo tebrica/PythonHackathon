@@ -79,16 +79,10 @@ class igra(QFrame, QGraphicsScene):
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "player2.png", "player2_left.png",
                                   "player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
 
-        self.Objects = [Object.Object(self, 150, 365),
-                        Object.Object(self, 365, 580),
-                        Object.Object(self, 580, 795),
-                        Object.Object(self, 700, 900),
-                        Object.Object(self, 500, 800),
-                        Object.Object(self, 200, 500),
-                        Object.ObjectCar(self, 150, 580),
-                        Object.ObjectCar(self, 580, 900),
-                        Object.ObjectCar(self, 150, 580),
-                        Object.ObjectCar(self, 580, 900)]
+        self.Objects = [Object.ObjectCar1(self, 150, 580),
+                        Object.ObjectCar2(self, 580, 900),
+                        Object.ObjectCar3(self, 150, 580),
+                        Object.ObjectCar4(self, 580, 900)]
 
         self.keys_pressed = set()
         self.setFocusPolicy(Qt.StrongFocus)
