@@ -6,7 +6,6 @@ import sys, random
 
 from Game import Game
 
-
 class UI(QtWidgets.QWidget):
 
     def init(self):

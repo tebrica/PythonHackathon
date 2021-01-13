@@ -81,7 +81,6 @@ class Scene(QGraphicsScene, QFrame):
         self.setSceneRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
-
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
 

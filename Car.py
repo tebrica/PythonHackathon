@@ -1,10 +1,12 @@
 import sys
+from multiprocessing.dummy import Process
+
 import Object
 from PyQt5.QtCore import (
     Qt,
     QBasicTimer,
     QSize,
-    QPointF
+    QPointF, QThread
 )
 from PyQt5.QtGui import (
     QBrush,
@@ -22,17 +24,18 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtWidgets import QLabel
 
-PLAYER_SPEED            = 8
+PLAYER_SPEED            = 12
 FRAME_TIME_MS           = 16  # ms/frame
 SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
 
-class Player(QLabel, QGraphicsPixmapItem):
+class Player(QLabel):
 
-    def __init__(self, parent, KeyLeft, KeyRight, KeyUp, KeyDown, pic, picl, picr, x, y) :
+    def __init__(self, parent, KeyLeft, KeyRight, KeyUp, KeyDown, pic, picl, picr, x, y, name) :
 
         super(Player, self).__init__(parent)
-
+        self.name = name
+        self.health = 3
         self.dimX = 90
         self.dimY = 170
         self.left = KeyLeft
@@ -46,7 +49,6 @@ class Player(QLabel, QGraphicsPixmapItem):
         self.setPixmap(player.scaled(self.dimX, self.dimY))
         self.setGeometry(x, y, self.dimX, self.dimY)
 
-
     def game_update(self, keys_pressed):
         dx = 0
         dy = 0
@@ -54,7 +56,6 @@ class Player(QLabel, QGraphicsPixmapItem):
         player = QPixmap(self.pic)
         self.setPixmap(player.scaled(self.dimX, self.dimY))
 
-        #if newX < Board.BoardWidth - 330 and newX > 220:
         if self.left in keys_pressed:
             if self.x() > 150:
                 dx -= PLAYER_SPEED
