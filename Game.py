@@ -1,12 +1,15 @@
 import sys
+import threading
 import Car
 import Object
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt
-from multiprocessing import Queue, Process
+from multiprocessing import Queue, Process, Pipe
 from player import Player
 import time, random
+import multiprocessing as mp
+from JobWorker import jobWorker
 from PyQt5.QtCore import (
     Qt,
     QBasicTimer,
@@ -89,9 +92,14 @@ class igra(QFrame, QGraphicsScene):
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
 
-    def startProcess(self):
-        self.p = Process()
-        self.p.start()
+        ex_pipe, in_pipe = mp.Pipe()
+        self.jw = jobWorker(in_pipe)
+        self.t = threading.Thread(target=self.threadJob, args = (ex_pipe,))
+        self.jw.start()
+        self.t.start()
+
+
+
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
@@ -108,3 +116,10 @@ class igra(QFrame, QGraphicsScene):
         self.player.game_update(self.keys_pressed)
         for b in self.Objects:
             b.game_update()
+
+    def threadJob(self, pipe1: Pipe):
+        while True:
+            value = pipe1.recv()
+            print(value)
+        #self.thread = QThread()
+        #self.moveToThread(self.thread)
