@@ -27,6 +27,8 @@ FRAME_TIME_MS           = 16  # ms/frame
 SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
 
+PLAYER_SPEED_WHEN_HIT   = 3
+
 class Player(QLabel, QGraphicsPixmapItem):
 
     def __init__(self, parent, KeyLeft, KeyRight, KeyUp, KeyDown, pic, picl, picr, x, y) :
@@ -45,6 +47,7 @@ class Player(QLabel, QGraphicsPixmapItem):
         player = QPixmap(pic)
         self.setPixmap(player.scaled(self.dimX, self.dimY))
         self.setGeometry(x, y, self.dimX, self.dimY)
+
 
 
     def game_update(self, keys_pressed):

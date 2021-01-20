@@ -20,7 +20,7 @@ class CrazyCars(QMainWindow, UI):
     def initUI(self):
 
         self.setGeometry(0,0,1200,850) #podesavanje prozora
-        self.setWindowIcon(QIcon('cc.jpg'))
+        self.setWindowIcon(QIcon('Slike/cc.jpg'))
         self.setWindowTitle('Crazy Cars')
         self.setFixedSize(1200, 850)
         self.setCentralWidget(self.StackedWidgets)

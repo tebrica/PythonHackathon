@@ -19,10 +19,10 @@ class Game(QMainWindow):
         self.resize(1200, 850)
         self.center()
         self.setWindowTitle('Crazy Cars')
-        self.setWindowIcon(QIcon("cc.jpg"))
+        self.setWindowIcon(QIcon("Slike/cc.jpg"))
 
         # setting background picture
-        oImage = QImage("bck.jpg")
+        oImage = QImage("Slike/bck.jpg")
         sImage = oImage.scaled(1200, 850)
         palette = QPalette()
         palette.setBrush(10, QBrush(sImage))
@@ -53,8 +53,8 @@ class Board(QFrame):
         self.q = Queue()
 
         #dva igraca
-        self.player1 = Player(self, 815, 650, "player1.png")
-        self.player2 = Player(self, 270, 650, "player2.png")
+        self.player1 = Player(self, 815, 650, "Slike/player1.png")
+        self.player2 = Player(self, 270, 650, "Slike/player2.png")
 
         self.keys_pressed = set()
 
@@ -72,13 +72,13 @@ class Board(QFrame):
         self.keys_pressed.add(event.key())
 
         if Qt.Key_Left in self.keys_pressed:
-            self.move_player(self.player1, self.player1.x - 10, "player1_left.png")
+            self.move_player(self.player1, self.player1.x - 10, "Slike/player1_left.png")
         if Qt.Key_Right in self.keys_pressed:
-            self.move_player(self.player1, self.player1.x + 10, "player1_right.png")
+            self.move_player(self.player1, self.player1.x + 10, "Slike/player1_right.png")
         if Qt.Key_A in self.keys_pressed:
-            self.move_player(self.player2, self.player2.x - 10, "player2_left.png")
+            self.move_player(self.player2, self.player2.x - 10, "Slike/player2_left.png")
         if Qt.Key_D in self.keys_pressed:
-            self.move_player(self.player2, self.player2.x + 10, "player2_right.png")
+            self.move_player(self.player2, self.player2.x + 10, "Slike/player2_right.png")
 
     def keyReleaseEvent(self, event):
         self.keys_pressed.remove(event.key())
@@ -86,13 +86,13 @@ class Board(QFrame):
         key = event.key()
 
         if key == Qt.Key_Left:
-            self.changePicture(self.player1, "player1.png")
+            self.changePicture(self.player1, "Slike/player1.png")
         if key == Qt.Key_Right:
-            self.changePicture(self.player1, "player1.png")
+            self.changePicture(self.player1, "Slike/player1.png")
         if key == Qt.Key_A:
-            self.changePicture(self.player2, "player2.png")
+            self.changePicture(self.player2, "Slike/player2.png")
         if key == Qt.Key_D:
-            self.changePicture(self.player2, "player2.png")
+            self.changePicture(self.player2, "Slike/player2.png")
 
     def changePicture(self, label, newPicture):
         picture = QPixmap(newPicture)

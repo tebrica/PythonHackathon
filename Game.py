@@ -45,10 +45,10 @@ class Game(QMainWindow):
         self.resize(1200, 850)
         self.center()
         self.setWindowTitle('Crazy Cars')
-        self.setWindowIcon(QIcon("cc.jpg"))
+        self.setWindowIcon(QIcon("Slike/cc.jpg"))
 
         # setting background picture
-        oImage = QImage("bck.jpg")
+        oImage = QImage("Slike/bck.jpg")
         sImage = oImage.scaled(1200, 850)
         palette = QPalette()
         palette.setBrush(10, QBrush(sImage))
@@ -77,15 +77,20 @@ class igra(QFrame, QGraphicsScene):
 
     def init_board(self):
         #dva igraca
-        self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "player1.png", "player1_left.png",
-                                 "player1_right.png", (SCREEN_WIDTH / 2) + 200, ((SCREEN_HEIGHT) - 250))
-        self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "player2.png", "player2_left.png",
-                                  "player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
+        self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "Slike/player1.png", "Slike/player1_left.png",
+                                 "Slike/player1_right.png", (SCREEN_WIDTH / 2) + 200, ((SCREEN_HEIGHT) - 250))
+        self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "Slike/player2.png", "Slike/player2_left.png",
+                                  "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
+
 
         self.Objects = [Object.ObjectCar1(self, 150, 580),
                         Object.ObjectCar2(self, 580, 900),
                         Object.ObjectCar3(self, 150, 580),
                         Object.ObjectCar4(self, 580, 900)]
+
+        #da se automobili prikazu preko prepreka
+        self.player.raise_()
+        self.player1.raise_()
 
         self.keys_pressed = set()
         self.setFocusPolicy(Qt.StrongFocus)
