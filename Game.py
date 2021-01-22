@@ -4,13 +4,14 @@ import Car
 import Object
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from multiprocessing import Queue, Process, Pipe
 from player import Player
 import time, random
 import multiprocessing as mp
 from JobWorker import jobWorker
 from PyQt5.QtCore import (
+    QThread,
     Qt,
     QBasicTimer,
     QSize,
@@ -83,10 +84,10 @@ class igra(QFrame, QGraphicsScene):
                                   "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
 
 
-        self.Objects = [Object.ObjectCar1(self, 150, 580),
-                        Object.ObjectCar2(self, 580, 900),
-                        Object.ObjectCar3(self, 150, 580),
-                        Object.ObjectCar4(self, 580, 900)]
+        self.Objects = [Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
+                        Object.ObjectCar1(self, 150, 580, "Slike/car_orange.png"),
+                        Object.ObjectCar3(self, 150, 580, "Slike/prepreka2.png"),
+                        Object.ObjectCar3(self, 580, 900, "Slike/prepreka1.png")]
 
         #da se automobili prikazu preko prepreka
         self.player.raise_()
@@ -96,18 +97,11 @@ class igra(QFrame, QGraphicsScene):
         self.setFocusPolicy(Qt.StrongFocus)
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
-
-        ex_pipe, in_pipe = mp.Pipe()
-        self.jw = jobWorker(in_pipe)
-        self.t = threading.Thread(target=self.threadJob, args = (ex_pipe,))
-        self.jw.start()
-        self.t.start()
-
-
-
+        #self.initThreads()
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
+        #self.in_pipe1.send(self.keys_pressed)
 
     def keyReleaseEvent(self, event):
         self.keys_pressed.remove(event.key())
@@ -122,9 +116,59 @@ class igra(QFrame, QGraphicsScene):
         for b in self.Objects:
             b.game_update()
 
-    def threadJob(self, pipe1: Pipe):
+    def initThreads(self):
+        self.initProcess()
+
+        self.thread = QThread()
+        self.worker = Worker(self.ex_pipe,self.player,self.keys_pressed, None, None)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.threadJobPlayer)
+        self.thread.start()
+
+        self.thread1 = QThread()
+        self.worker1 = Worker(None, self.player1, self.keys_pressed, self.ex_pipe2, None)
+        self.worker1.moveToThread(self.thread1)
+        self.thread1.started.connect(self.worker1.threadJobPlayer1)
+        self.thread1.start()
+
+        self.thread2 = QThread()
+        self.worker2 = Worker(None, None, None, None, self.Objects)
+        self.worker2.moveToThread(self.thread2)
+        self.thread2.started.connect(self.worker2.updateObjects)
+        self.thread2.start()
+
+    def initProcess(self):
+        self.ex_pipe, self.in_pipe = mp.Pipe()
+        self.ex_pipe1, self.in_pipe1 = mp.Pipe()
+        self.ex_pipe2, self.in_pipe2 = mp.Pipe()
+
+        self.jw = jobWorker(self.in_pipe, self.ex_pipe1, self.in_pipe2)
+        self.jw.start()
+
+
+class Worker(QObject):
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
+    def __init__(self, pipe: Pipe, player: Car.Player, keysPressed, pipe1: Pipe, Objects):
+        super().__init__()
+        self.Objects = Objects
+        self.pipe1 = pipe1
+        self.pipe = pipe
+        self.player = player
+        self.keysPressed = keysPressed
+
+    def threadJobPlayer(self):
         while True:
-            value = pipe1.recv()
-            print(value)
-        #self.thread = QThread()
-        #self.moveToThread(self.thread)
+            self.player.game_update(self.pipe.recv())
+            time.sleep(0.0167)
+
+    def threadJobPlayer1(self):
+        while True:
+            self.player.game_update(self.pipe1.recv())
+            time.sleep(0.0167)
+
+    def updateObjects(self):
+        while True:
+            for b in self.Objects:
+                b.game_update()
+            time.sleep(0.0167)
