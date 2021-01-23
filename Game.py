@@ -2,6 +2,7 @@ import sys
 import threading
 import Car
 import Object
+import health
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt, QObject, pyqtSignal
@@ -83,6 +84,8 @@ class igra(QFrame, QGraphicsScene):
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "Slike/player2.png", "Slike/player2_left.png",
                                   "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
 
+        self.health = health.health(self,1050,50,self.player)
+        self.health1 = health.health(self,0,50,self.player1)
 
         self.Objects = [Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
                         Object.ObjectCar1(self, 150, 580, "Slike/car_orange.png"),
