@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from multiprocessing import Queue, Process, Pipe
-from player import Player
 import time, random
 import multiprocessing as mp
 from JobWorker import jobWorker

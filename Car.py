@@ -34,7 +34,8 @@ class Player(QLabel, QGraphicsPixmapItem):
     def __init__(self, parent, KeyLeft, KeyRight, KeyUp, KeyDown, pic, picl, picr, x, y) :
 
         super(Player, self).__init__(parent)
-
+        self.speedHit = 3
+        self.speedSlow = False
         self.dimX = 90
         self.dimY = 170
         self.left = KeyLeft
@@ -49,12 +50,14 @@ class Player(QLabel, QGraphicsPixmapItem):
         self.setGeometry(x, y, self.dimX, self.dimY)
         self.untouchable = False
 
-
-
     def game_update(self, keys_pressed):
         dx = 0
         dy = 0
 
+        if self.speedSlow == True:
+            PLAYER_SPEED = 2
+        else:
+            PLAYER_SPEED = 5
         #if newX < Board.BoardWidth - 330 and newX > 220:
         if self.left in keys_pressed:
             if self.x() > 150:
