@@ -16,8 +16,12 @@ class UI(QtWidgets.QWidget):
         self.MenuUI()
         self.game = Game()
 
+        self.instructions = Instructions()
+        self.instructions.buttonRet.clicked.connect(lambda: self.instructions.returnHome(self.StackedWidgets))
+
         self.StackedWidgets.addWidget(self.home)
         self.StackedWidgets.addWidget(self.game)
+        self.StackedWidgets.addWidget(self.instructions)
 
 
     def MenuUI(self):
@@ -50,6 +54,24 @@ class UI(QtWidgets.QWidget):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+class Instructions(QWidget):
+    def __init__(self,):
+        super().__init__()
+        self.setFixedSize(900, 600)
+
+        self.setStyleSheet("background-image: url(Slike/instructions.png)")
+
+        self.buttonRet = QPushButton('',self)
+        self.buttonRet.setFixedSize(574, 590)
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.buttonRet)
+        self.setLayout(layout)
+
+    def returnHome(self, sw):
+        sw.setCurrentIndex(0)
+
 
 
 
