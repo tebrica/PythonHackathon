@@ -100,7 +100,7 @@ class igra(QFrame, QGraphicsScene):
         self.setFocusPolicy(Qt.StrongFocus)
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
-        #self.initThreads()
+        #elf.initThreads()
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())

@@ -18,3 +18,4 @@ class jobWorker(Process):
             recv = self.pipe2.recv()
             self.pipe.send(recv)
             self.pipe3.send(recv)
+            time.sleep(0.0167)
