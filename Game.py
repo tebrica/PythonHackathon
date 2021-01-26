@@ -80,6 +80,10 @@ class igra(QFrame, QGraphicsScene):
         self.wm = wm
         self.init_board()
 
+    def __del__(self):
+        self.timer.stop()
+        self = None
+
     def init_board(self):
         #dva igraca
         self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "Slike/player1.png", "Slike/player1_left.png",

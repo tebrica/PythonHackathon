@@ -11,7 +11,6 @@ class UI(QtWidgets.QWidget):
 
     def init(self):
         self.i = 2
-
         self.StackedWidgets = QStackedWidget()
         self.home = QWidget()
 
@@ -27,9 +26,8 @@ class UI(QtWidgets.QWidget):
         self.StackedWidgets.addWidget(self.gameOverScreen)
 
     def SetGame(self):
-        self.i = self.i + 1
+        self.i = self.i +1
         self.game = Game(self.StackedWidgets, self.gameOverScreen)
-        self.StackedWidgets.removeWidget(self.game)
         self.StackedWidgets.addWidget(self.game)
         self.StackedWidgets.setCurrentIndex(self.i)
 
@@ -81,7 +79,3 @@ class Instructions(QWidget):
 
     def returnHome(self, sw):
         sw.setCurrentIndex(0)
-
-
-
-
