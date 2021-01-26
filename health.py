@@ -4,7 +4,7 @@ from Car import Player
 from GameOverScreen import GameOverScreen
 
 class health(QLabel, QGraphicsPixmapItem):
-    def __init__(self, parent, x, y, player: Player, sw, id, wm):
+    def __init__(self, parent, x, y, player: Player, sw, id, wm, pic):
 
         super(health, self).__init__(parent)
         self.x = x
@@ -14,7 +14,7 @@ class health(QLabel, QGraphicsPixmapItem):
         self.health = 3
         self.dimX = 150
         self.dimY = 150
-        self.pic = QPixmap("Slike/Health.png")
+        self.pic = QPixmap(pic)
         self.setPixmap(self.pic.scaled(self.dimX, self.dimY))
         self.setGeometry(x, y, self.dimX, self.dimY)
         self.sw = sw

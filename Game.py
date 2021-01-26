@@ -3,6 +3,7 @@ import threading
 import Car
 import Object
 import health
+import background
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt, QObject, pyqtSignal
@@ -52,7 +53,7 @@ class Game(QMainWindow):
 
 
         # setting background picture
-        oImage = QImage("Slike/bck.jpg")
+        oImage = QImage("Slike/testBG.png")
         sImage = oImage.scaled(1200, 850)
         palette = QPalette()
         palette.setBrush(10, QBrush(sImage))
@@ -86,14 +87,18 @@ class igra(QFrame, QGraphicsScene):
         self = None
 
     def init_board(self):
+
+        self.background1 = background.background(self, -928)
+        self.background2 = background.background(self, 0)
+
         #dva igraca
         self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "Slike/player1.png", "Slike/player1_left.png",
                                  "Slike/player1_right.png", (SCREEN_WIDTH / 2) + 200, ((SCREEN_HEIGHT) - 250))
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "Slike/player2.png", "Slike/player2_left.png",
                                   "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
 
-        self.health = health.health(self,1050,50, self.player, self.sw, 1, self.wm)
-        self.health1 = health.health(self,0,50, self.player1, self.sw, 2, self.wm)
+        self.health = health.health(self,1050,50, self.player, self.sw, 1, self.wm, "Slike/HeartLBlue.png" )
+        self.health1 = health.health(self,0,50, self.player1, self.sw, 2, self.wm, "Slike/HeartRed.png" )
 
         self.Objects = [Object.ObjectCar3(self, 150, 580, "Slike/prepreka2.png"),
                         Object.ObjectCar3(self, 580, 900, "Slike/prepreka1.png"),
@@ -124,8 +129,12 @@ class igra(QFrame, QGraphicsScene):
     def game_update(self):
         self.player1.game_update(self.keys_pressed)
         self.player.game_update(self.keys_pressed)
+        self.background1.update()
+        self.background2.update()
+
         for b in self.Objects:
             b.game_update()
+
 
     def initThreads(self):
         self.initProcess()

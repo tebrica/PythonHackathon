@@ -38,7 +38,7 @@ class UI(QtWidgets.QWidget):
         layout = QHBoxLayout()
 
         oImage = QImage("Slike/background.png")
-        sImage = oImage.scaled(QSize(1200, 850))  # resize Image to widgets size
+        sImage = oImage.scaled(QSize(1200, 928))  # resize Image to widgets size
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(sImage))
         self.setPalette(palette)
