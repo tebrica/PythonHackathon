@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from multiprocessing import Queue, Process, Pipe
-from player import Player
 import time, random
 import multiprocessing as mp
 from JobWorker import jobWorker
@@ -36,12 +35,14 @@ from PyQt5.QtWidgets import (
 
 class Game(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, sw, wm):
         super().__init__()
+        self.sw = sw
+        self.wm = wm
         self.initUI()
 
     def initUI(self):
-        self.board = igra(self)
+        self.board = igra(self, self.sw, self.wm)
         self.setCentralWidget(self.board)
 
         self.resize(1200, 850)
@@ -72,9 +73,11 @@ FRAME_TIME_MS           = 16  # ms/frame
 
 class igra(QFrame, QGraphicsScene):
 
-    def __init__(self, parent):
+    def __init__(self, parent, sw, wm):
         super().__init__(parent)
 
+        self.sw = sw
+        self.wm = wm
         self.init_board()
 
     def init_board(self):
@@ -84,8 +87,8 @@ class igra(QFrame, QGraphicsScene):
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "Slike/player2.png", "Slike/player2_left.png",
                                   "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
 
-        self.health = health.health(self,1050,50,self.player)
-        self.health1 = health.health(self,0,50,self.player1)
+        self.health = health.health(self,1050,50, self.player, self.sw, 1, self.wm)
+        self.health1 = health.health(self,0,50, self.player1, self.sw, 2, self.wm)
 
         self.Objects = [Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
                         Object.ObjectCar1(self, 150, 580, "Slike/car_orange.png"),

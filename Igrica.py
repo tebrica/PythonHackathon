@@ -43,7 +43,7 @@ class CrazyCars(QMainWindow, UI):
         self.StackedWidgets.setCurrentIndex(1)
 
     def openInstructions(self):
-        print("")
+        self.StackedWidgets.setCurrentIndex(2)
 
     def openHighScore(self):
         sys.exit()

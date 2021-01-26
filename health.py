@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QLabel, QGraphicsPixmapItem
 from Car import Player
 
 class health(QLabel, QGraphicsPixmapItem):
-
     def __init__(self, parent, x, y, player: Player):
 
         super(health, self).__init__(parent)
@@ -19,7 +18,6 @@ class health(QLabel, QGraphicsPixmapItem):
         self.setGeometry(x, y, self.dimX, self.dimY)
 
     def HealthLoss(self):
-
         self.health = self.health-1
         self.dimX = self.dimX - 50
         self.dimY = self.dimY - 50
