@@ -50,6 +50,7 @@ class Game(QMainWindow):
         self.setWindowTitle('Crazy Cars')
         self.setWindowIcon(QIcon("Slike/cc.jpg"))
 
+
         # setting background picture
         oImage = QImage("Slike/bck.jpg")
         sImage = oImage.scaled(1200, 850)
@@ -94,10 +95,11 @@ class igra(QFrame, QGraphicsScene):
         self.health = health.health(self,1050,50, self.player, self.sw, 1, self.wm)
         self.health1 = health.health(self,0,50, self.player1, self.sw, 2, self.wm)
 
-        self.Objects = [Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
-                        Object.ObjectCar1(self, 150, 580, "Slike/car_orange.png"),
-                        Object.ObjectCar3(self, 150, 580, "Slike/prepreka2.png"),
-                        Object.ObjectCar3(self, 580, 900, "Slike/prepreka1.png")]
+        self.Objects = [Object.ObjectCar3(self, 150, 580, "Slike/prepreka2.png"),
+                        Object.ObjectCar3(self, 580, 900, "Slike/prepreka1.png"),
+                        Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
+                        Object.ObjectCar1(self, 150, 580, "Slike/car_orange.png")
+                        ]
 
         #da se automobili prikazu preko prepreka
         self.player.raise_()
