@@ -29,7 +29,7 @@ class CrazyCars(QMainWindow, UI):
         self.show()
 
     def display(self):
-       self.stackedWidgets.setCurrentIndex(3)
+       self.stackedWidgets.setCurrentIndex(2)
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Message',"Are you sure you want to quit?", QMessageBox.Yes |  QMessageBox.No, QMessageBox.No)
@@ -40,10 +40,11 @@ class CrazyCars(QMainWindow, UI):
             event.ignore()
 
     def openGame(self):
-        self.StackedWidgets.setCurrentIndex(1)
+        self.SetGame()
+
 
     def openInstructions(self):
-        self.StackedWidgets.setCurrentIndex(2)
+        self.StackedWidgets.setCurrentIndex(1)
 
     def openHighScore(self):
         sys.exit()
