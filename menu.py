@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
 
 from Game import Game
-
+from GameOverScreen import GameOverScreen
 
 class UI(QtWidgets.QWidget):
 
@@ -14,14 +14,20 @@ class UI(QtWidgets.QWidget):
         self.home = QWidget()
 
         self.MenuUI()
-        self.game = Game()
+        self.gameOverScreen = GameOverScreen()
+        self.gameOverScreen.buttonRet.clicked.connect(lambda: self.gameOverScreen.returnHome(self.StackedWidgets))
+
+        self.game = Game(self.StackedWidgets, self.gameOverScreen)
 
         self.instructions = Instructions()
         self.instructions.buttonRet.clicked.connect(lambda: self.instructions.returnHome(self.StackedWidgets))
 
+
+
         self.StackedWidgets.addWidget(self.home)
         self.StackedWidgets.addWidget(self.game)
         self.StackedWidgets.addWidget(self.instructions)
+        self.StackedWidgets.addWidget(self.gameOverScreen)
 
 
     def MenuUI(self):
