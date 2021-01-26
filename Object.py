@@ -27,7 +27,7 @@ SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
 PLAYER_Object_X_OFFSETS = [0,45]
 PLAYER_Object_Y         = 15
-Object_SPEED            = 5 # pix/frame
+Object_SPEED            = 7 # pix/frame
 ObjectCar_SPEED            = 2 # pix/frame
 ObjectCar_FRAMES           = 360
 FRAME_TIME_MS           = 16  # ms/frame
@@ -55,7 +55,7 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
     def game_update(self):
 
         if not self.active:
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-450, -100), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1050, -100), self.dimX, self.dimY)
             self.active = True
         if self.active:
             self.setGeometry(self.x(), self.y() + Object_SPEED, self.dimX, self.dimY)
@@ -117,7 +117,7 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
     def game_update(self):
         if not self.active:
             self.active = True
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-450, -100), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1050, -100), self.dimX, self.dimY)
         else:
             self.setGeometry(self.x(), self.y() + ObjectCar_SPEED, self.dimX, self.dimY)
             # kontakt plavog igraca i prepreke
