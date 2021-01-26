@@ -103,7 +103,8 @@ class igra(QFrame, QGraphicsScene):
         self.Objects = [Object.ObjectCar3(self, 150, 580, "Slike/prepreka2.png"),
                         Object.ObjectCar3(self, 580, 900, "Slike/prepreka1.png"),
                         Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
-                        Object.ObjectCar1(self, 580, 900, "Slike/car_orange.png")]
+                        Object.ObjectCar1(self, 580, 900, "Slike/car_orange.png"),
+                        Object.ObjectShield(self, 150, 580, "Slike/shield.png")]
 
         #da se automobili prikazu preko prepreka
         self.player.raise_()

@@ -71,7 +71,7 @@ class Instructions(QWidget):
         self.setStyleSheet("background-image: url(Slike/instructions.png)")
 
         self.buttonRet = QPushButton('',self)
-        self.buttonRet.setFixedSize(574, 590)
+        self.buttonRet.setFixedSize(517, 630)
 
         layout = QHBoxLayout()
         layout.addWidget(self.buttonRet)
