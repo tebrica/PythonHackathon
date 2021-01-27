@@ -145,7 +145,7 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
     def slow(self, player):
         i = 0
         player.speedSlow = True
-        while(i < 8):
+        while(i < 16):
             time.sleep(0.2)
             i = i+1
         player.speedSlow = False
@@ -170,7 +170,6 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
         self.plavi = False
         self.crveni = False
 
-
     def game_update(self):
         if not self.active:
             self.active = True
@@ -188,7 +187,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 #self.untouchable = True
                 self.active = False
 
-                self.t = Thread(target=self.blink, args=(self.parent.player,))
+                self.t = Thread(target=self.blinkShield, args=(self.parent.player,))
                 self.t.start()
             # kontakt crvenog igraca i prepreke
             self.pozicijaPlayer1 = self.player1.geometry()
@@ -201,7 +200,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 #self.untouchable = True
                 self.active = False
 
-                self.t = Thread(target=self.blink, args=(self.parent.player1,))
+                self.t = Thread(target=self.blinkShield, args=(self.parent.player1,))
                 self.t.start()
 
 
@@ -216,6 +215,19 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
         i = 0
         player.untouchable = True
         while (i < 8):
+            player.dimX = 0
+            player.dimY = 0
+            time.sleep(0.15)
+            player.dimX = 90
+            player.dimY = 170
+            time.sleep(0.15)
+            i = i + 1
+        player.untouchable = False
+
+    def blinkShield(self, player):
+        i = 0
+        player.untouchable = True
+        while (i < 24):
             player.dimX = 0
             player.dimY = 0
             time.sleep(0.15)
