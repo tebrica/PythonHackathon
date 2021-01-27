@@ -7,19 +7,21 @@ class highscore(QLabel, QGraphicsPixmapItem):
     def __init__(self, parent, x, y, player: Player):
 
         super(highscore, self).__init__(parent)
-        self.labelA = QLabel(parent)
-        self.labelA.setText("0")
-        self.labelA.move(x, y)
-        self.labelA.setFont(QFont("Arial", 20))
-        self.labelA.setStyleSheet("QLabel{background-color:white; color: black;}")
-        self.labelA.setAlignment(Qt.AlignCenter)
+
+        self.x = x
+        self.y = y
         self.parent = parent
         self.player = player
-        self.health = 3
         self.dimX = 150
         self.dimY = 150
 
+        self.labelA = QLabel(self.parent)
+        self.labelA.setText("0")
+        self.labelA.setFixedWidth(120)
+        self.labelA.move(self.x, self.y)
+        self.labelA.setFont(QFont("Arial", 20))
+        self.labelA.setStyleSheet("QLabel{background-color:white; color: black;}")
+        self.labelA.setAlignment(Qt.AlignCenter)
+
     def scoreUpdate(self, score):
-
         self.labelA.setText(score)
-

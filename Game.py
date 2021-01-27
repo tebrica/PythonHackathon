@@ -107,8 +107,8 @@ class igra(QFrame, QGraphicsScene):
                         Object.ObjectCar1(self, 580, 900, "Slike/car_orange.png"),
                         Object.ObjectShield(self, 150, 580, "Slike/shield.png")]
 
-        self.hightscore = highscore(self, 65, 35, self.player)
-        self.hightscore1 = highscore(self, 1115, 35, self.player1)
+        self.highscore = highscore(self, 15, 35, self.player)
+        self.highscore1 = highscore(self, 1065, 35, self.player1)
 
         #da se automobili prikazu preko prepreka
         self.player.raise_()
@@ -117,7 +117,8 @@ class igra(QFrame, QGraphicsScene):
         self.keys_pressed = set()
         self.setFocusPolicy(Qt.StrongFocus)
         self.initProcess()
-
+        self.t = threading.Thread(target=self.initThreads, args=())
+        self.t.start()
         #self.doJob()
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
@@ -127,7 +128,6 @@ class igra(QFrame, QGraphicsScene):
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
-        self.hightscore.scoreUpdate("100")
 
 
     def keyReleaseEvent(self, event):
@@ -149,30 +149,22 @@ class igra(QFrame, QGraphicsScene):
 
 
     def initThreads(self):
-        self.initProcess()
+        while True:
+            data = self.ex_pipeHS.recv()
+            data1 = self.ex_pipeHS1.recv()
+            if data != None:
+                self.highscore.scoreUpdate(data)
+            if data1 != None:
+                self.highscore1.scoreUpdate(data1)
+            time.sleep(0.1)
 
-        self.thread = QThread()
-        self.worker = Worker(self.ex_pipe,self.player,self.keys_pressed, None, None)
-        self.worker.moveToThread(self.thread)
-        self.thread.started.connect(self.worker.threadJobPlayer)
-        self.thread.start()
-
-        self.thread1 = QThread()
-        self.worker1 = Worker(None, self.player1, self.keys_pressed, self.ex_pipe2, None)
-        self.worker1.moveToThread(self.thread1)
-        self.thread1.started.connect(self.worker1.threadJobPlayer1)
-        self.thread1.start()
-
-        self.thread2 = QThread()
-        self.worker2 = Worker(None, None, None, None, self.Objects)
-        self.worker2.moveToThread(self.thread2)
-        self.thread2.started.connect(self.worker2.updateObjects)
-        self.thread2.start()
 
     def initProcess(self):
         self.ex_pipe, self.in_pipe = mp.Pipe()
+        self.ex_pipeHS, self.in_pipeHS = mp.Pipe()
+        self.ex_pipeHS1, self.in_pipeHS1 = mp.Pipe()
 
-        self.jw = jobWorker(self.in_pipe)
+        self.jw = jobWorker(self.in_pipe, self.in_pipeHS, self.in_pipeHS1)
         self.jw.start()
 
     def doJob(self):
