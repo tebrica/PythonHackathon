@@ -12,15 +12,15 @@ class highscore(QLabel, QGraphicsPixmapItem):
         self.y = y
         self.parent = parent
         self.player = player
-        self.dimX = 150
-        self.dimY = 150
+        self.dimX = 160
+        self.dimY = 160
 
         self.labelA = QLabel(self.parent)
         self.labelA.setText("0")
         self.labelA.setFixedWidth(120)
         self.labelA.move(self.x, self.y)
-        self.labelA.setFont(QFont("Arial", 20))
-        self.labelA.setStyleSheet("QLabel{background-color:white; color: black;}")
+        self.labelA.setFont(QFont("Arial", 24))
+        self.labelA.setStyleSheet("QLabel{background-color:transparent; color: white; font-weight: bold;}")
         self.labelA.setAlignment(Qt.AlignCenter)
 
     def scoreUpdate(self, score):

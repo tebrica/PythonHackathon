@@ -107,8 +107,8 @@ class igra(QFrame, QGraphicsScene):
                         Object.ObjectCar1(self, 580, 900, "Slike/car_orange.png"),
                         Object.ObjectShield(self, 150, 580, "Slike/shield.png")]
 
-        self.highscore = highscore(self, 15, 35, self.player)
-        self.highscore1 = highscore(self, 1065, 35, self.player1)
+        self.highscore = highscore(self, 15, 15, self.player)
+        self.highscore1 = highscore(self, 1065, 15, self.player1)
 
         #da se automobili prikazu preko prepreka
         self.player.raise_()
