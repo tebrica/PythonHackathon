@@ -30,7 +30,7 @@ class health(QLabel, QGraphicsPixmapItem):
         self.setPixmap(self.pic.scaled(self.dimX, self.dimY))
 
         self.setGeometry(self.x, self.y, self.dimX, self.dimY)
-        if self.health < 0:
+        if self.health < 1:
             if self.player.name == self.parent.player1.name:
                 self.parent.playerWinner = self.parent.player.name
             else:

@@ -35,6 +35,7 @@ class UI(QtWidgets.QWidget):
 
     def getWinner(self, playerWinner):
         print ("Winner is: " + playerWinner)
+        
 
 
     def MenuUI(self):
