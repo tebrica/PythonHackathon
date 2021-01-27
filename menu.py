@@ -35,7 +35,7 @@ class UI(QtWidgets.QWidget):
 
     def getWinner(self, playerWinner):
         print ("Winner is: " + playerWinner)
-        
+
 
 
     def MenuUI(self):
@@ -52,6 +52,7 @@ class UI(QtWidgets.QWidget):
         self.combo = QComboBox(self)
         self.igraci = 2
         self.combo.addItem("2 players")
+        self.makeBracket()
         self.combo.addItem("4 players")
         self.combo.addItem("8 players")
         self.combo.activated[str].connect(self.selectionchange)
@@ -84,6 +85,33 @@ class UI(QtWidgets.QWidget):
             self.igraci = 4
         else:
             self.igraci = 8
+
+        self.makeBracket()
+
+    def makeBracket(self):
+        self.pairs = []
+        if self.igraci == 2:
+            self.prayers = ["igrac1", "igrac2"]
+        elif self.igraci == 4:
+            self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4"]
+        elif self.igraci == 8:
+            self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4", "igrac5", "igrac6", "igrac7", "igrac8"]
+
+        self.makePairs()
+
+    def makePairs(self):
+        while self.prayers:
+            rand1 = self.pop_random()
+            rand2 = self.pop_random()
+            pair = rand1, rand2
+            print (pair)
+            print ("----------------")
+            self.pairs.append(pair)
+
+    def pop_random(self):
+        idx = random.randrange(0, len(self.prayers))
+        return self.prayers.pop(idx)
+
 
 
 class Instructions(QWidget):
