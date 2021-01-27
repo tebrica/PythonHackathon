@@ -173,7 +173,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
     def game_update(self):
         if not self.active:
             self.active = True
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-4000, -1500), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-2000, -1000), self.dimX, self.dimY)
         else:
             self.setGeometry(self.x(), self.y() + ObjectShield_SPEED, self.dimX, self.dimY)
             # kontakt plavog igraca i prepreke
@@ -204,7 +204,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 self.t.start()
 
 
-            if self.y() > 3500:
+            if self.y() > 1500:
                 self.active = False
                 self.setGeometry(SCREEN_WIDTH, SCREEN_HEIGHT, self.dimX, self.dimY)
                 #self.untouchable = False

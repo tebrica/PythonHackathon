@@ -89,7 +89,7 @@ class igra(QFrame, QGraphicsScene):
 
     def init_board(self):
 
-        self.background1 = background.background(self, -928)
+        self.background1 = background.background(self, -889)
         self.background2 = background.background(self, 0)
 
         #dva igraca
