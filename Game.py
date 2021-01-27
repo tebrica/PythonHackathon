@@ -4,6 +4,7 @@ import Car
 import Object
 import health
 import background
+from highscore import highscore
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QLabel, QWidget
 from PyQt5.QtGui import QBrush, QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt, QObject, pyqtSignal
@@ -106,6 +107,9 @@ class igra(QFrame, QGraphicsScene):
                         Object.ObjectCar1(self, 580, 900, "Slike/car_orange.png"),
                         Object.ObjectShield(self, 150, 580, "Slike/shield.png")]
 
+        self.hightscore = highscore(self, 65, 35, self.player)
+        self.hightscore1 = highscore(self, 1115, 35, self.player1)
+
         #da se automobili prikazu preko prepreka
         self.player.raise_()
         self.player1.raise_()
@@ -113,13 +117,18 @@ class igra(QFrame, QGraphicsScene):
         self.keys_pressed = set()
         self.setFocusPolicy(Qt.StrongFocus)
         self.initProcess()
+
         #self.doJob()
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
         #self.initThreads()
 
+
+
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
+        self.hightscore.scoreUpdate("100")
+
 
     def keyReleaseEvent(self, event):
         self.keys_pressed.remove(event.key())
