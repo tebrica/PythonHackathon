@@ -29,7 +29,7 @@ PLAYER_Object_X_OFFSETS = [0,45]
 PLAYER_Object_Y         = 15
 Object_SPEED            = 7 # pix/frame
 ObjectCar_SPEED            = 2 # pix/frame
-ObjectShield_SPEED            = 1
+ObjectShield_SPEED            = 2
 ObjectCar_FRAMES           = 360
 FRAME_TIME_MS           = 16  # ms/frame
 import random
@@ -173,7 +173,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
     def game_update(self):
         if not self.active:
             self.active = True
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-2000, -1000), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-2000, -1200), self.dimX, self.dimY)
         else:
             self.setGeometry(self.x(), self.y() + ObjectShield_SPEED, self.dimX, self.dimY)
             # kontakt plavog igraca i prepreke
@@ -204,7 +204,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 self.t.start()
 
 
-            if self.y() > 1500:
+            if self.y() > 2250:
                 self.active = False
                 self.setGeometry(SCREEN_WIDTH, SCREEN_HEIGHT, self.dimX, self.dimY)
                 #self.untouchable = False
