@@ -42,10 +42,10 @@ class jobWorker(Process):
                 self.car1Bod = self.car1Bod + 100 + 10
                 self.pipeHS1.send(str(self.car1Bod))
 
-            if self.brojac == 60 and not self.carCoin:
+            if self.brojac == 120 and not self.carCoin:
                 self.carBod = self.carBod + 10
 
-            if self.brojac == 60 and not self.car1Coin:
+            if self.brojac == 120 and not self.car1Coin:
                 self.car1Bod = self.car1Bod + 10
 
                 self.pipeHS.send(str(self.carBod))
@@ -57,7 +57,7 @@ class jobWorker(Process):
             self.carCoin = False
             self.car1Coin = False
 
-            time.sleep(0.016)
+            time.sleep(0.008)
 
 
 

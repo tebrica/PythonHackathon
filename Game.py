@@ -72,7 +72,7 @@ class Game(QMainWindow):
 
 SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
-FRAME_TIME_MS           = 16  # ms/frame
+FRAME_TIME_MS           = 8  # ms/frame
 
 class igra(QFrame, QGraphicsScene):
 
