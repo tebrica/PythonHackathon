@@ -25,8 +25,9 @@ class GameOverScreen(QWidget):
     def returnHome(self, sw):
         sw.setCurrentIndex(0)
 
-    def changeWinner(self, id):
+    def changeWinner(self, id, ):
         if(id == 1):
             self.setStyleSheet("background-image: url(Slike/player2win.png)")
+
         else:
             self.setStyleSheet("background-image: url(Slike/player1win.png)")

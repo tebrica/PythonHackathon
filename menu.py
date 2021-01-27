@@ -43,6 +43,14 @@ class UI(QtWidgets.QWidget):
         palette.setBrush(QPalette.Window, QBrush(sImage))
         self.setPalette(palette)
 
+        self.combo = QComboBox(self)
+        self.igraci = 2
+        self.combo.addItem("2 players")
+        self.combo.addItem("4 players")
+        self.combo.addItem("8 players")
+        self.combo.activated[str].connect(self.selectionchange)
+        layout.addWidget(self.combo)
+
         self.btn1 = QPushButton('Play', self.home)
         self.btn2 = QPushButton('Instructions', self.home)
         self.btn3 = QPushButton('High Score', self.home)
@@ -62,6 +70,15 @@ class UI(QtWidgets.QWidget):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    def selectionchange(self, text):
+        if text == "2 players":
+            self.igraci = 2
+        elif text == "4 players":
+            self.igraci = 4
+        else:
+            self.igraci = 8
+
 
 class Instructions(QWidget):
     def __init__(self,):
