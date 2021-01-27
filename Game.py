@@ -37,14 +37,17 @@ from PyQt5.QtWidgets import (
 
 class Game(QMainWindow):
 
-    def __init__(self, sw, wm):
+    def __init__(self, sw, wm, player1, player2, mec):
         super().__init__()
         self.sw = sw
         self.wm = wm
+        self.player1 = player1
+        self.player2 = player2
+        self.mec = mec
         self.initUI()
 
     def initUI(self):
-        self.board = igra(self, self.sw, self.wm)
+        self.board = igra(self, self.sw, self.wm, self.player1, self.player2)
         self.setCentralWidget(self.board)
 
         self.resize(1200, 850)
@@ -69,6 +72,9 @@ class Game(QMainWindow):
         self.move((screen.width() - size.width()) / 2,
                   (screen.height() - size.height()) / 2)
 
+    def vratiPobednika(self, playerWinner):
+        self.mec.getWinner(playerWinner)
+
 
 SCREEN_WIDTH            = 1200
 SCREEN_HEIGHT           = 850
@@ -76,16 +82,21 @@ FRAME_TIME_MS           = 8  # ms/frame
 
 class igra(QFrame, QGraphicsScene):
 
-    def __init__(self, parent, sw, wm):
+    def __init__(self, parent:Game, sw, wm, playerA, playerB):
         super().__init__(parent)
-
+        self.playerA = playerA
+        self.playerB = playerB
         self.sw = sw
         self.wm = wm
+        self.parent = parent
+        self.playerWinner = None
         self.init_board()
 
     def __del__(self):
         self.timer.stop()
+        self.returnWinner()
         self = None
+
 
     def init_board(self):
 
@@ -94,9 +105,9 @@ class igra(QFrame, QGraphicsScene):
 
         #dva igraca
         self.player = Car.Player(self, Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down, "Slike/player1.png", "Slike/player1_left.png",
-                                 "Slike/player1_right.png", (SCREEN_WIDTH / 2) + 200, ((SCREEN_HEIGHT) - 250))
+                                 "Slike/player1_right.png", (SCREEN_WIDTH / 2) + 200, ((SCREEN_HEIGHT) - 250), self.playerA)
         self.player1 = Car.Player(self, Qt.Key_A, Qt.Key_D, Qt.Key_W, Qt.Key_S, "Slike/player2.png", "Slike/player2_left.png",
-                                  "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250))
+                                  "Slike/player2_right.png",(SCREEN_WIDTH / 2 )-200,((SCREEN_HEIGHT) - 250), self.playerB)
 
         self.health = health.health(self,1050,50, self.player, self.sw, 1, self.wm, "Slike/HeartLBlue.png" )
         self.health1 = health.health(self,0,50, self.player1, self.sw, 2, self.wm, "Slike/HeartRed.png" )
@@ -190,6 +201,11 @@ class igra(QFrame, QGraphicsScene):
             self.timer.stop()
             self.__del__()
         return
+
+    def returnWinner(self):
+        self.parent.vratiPobednika(self.playerWinner)
+
+
 
 
 class Worker(QObject):

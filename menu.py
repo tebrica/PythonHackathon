@@ -27,9 +27,14 @@ class UI(QtWidgets.QWidget):
 
     def SetGame(self):
         self.i = self.i +1
-        self.game = Game(self.StackedWidgets, self.gameOverScreen)
+        self.player1 = "Plavi"
+        self.player2 = "Crveni"
+        self.game = Game(self.StackedWidgets, self.gameOverScreen, self.player1, self.player2, self)
         self.StackedWidgets.addWidget(self.game)
         self.StackedWidgets.setCurrentIndex(self.i)
+
+    def getWinner(self, playerWinner):
+        print ("Winner is: " + playerWinner)
 
 
     def MenuUI(self):

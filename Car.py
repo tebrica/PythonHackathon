@@ -31,9 +31,10 @@ PLAYER_SPEED_WHEN_HIT   = 3
 
 class Player(QLabel, QGraphicsPixmapItem):
 
-    def __init__(self, parent, KeyLeft, KeyRight, KeyUp, KeyDown, pic, picl, picr, x, y) :
+    def __init__(self, parent, KeyLeft, KeyRight, KeyUp, KeyDown, pic, picl, picr, x, y, name) :
 
         super(Player, self).__init__(parent)
+        self.name = name
         self.speedHit = 3
         self.speedSlow = False
         self.dimX = 90
