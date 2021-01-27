@@ -176,8 +176,10 @@ class igra(QFrame, QGraphicsScene):
 
             for b in self.Objects:
                b.game_update()
-
-            return
+        elif data == "stop":
+            self.timer.stop()
+            self.__del__()
+        return
 
 
 class Worker(QObject):

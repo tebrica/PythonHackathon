@@ -40,5 +40,4 @@ class health(QLabel, QGraphicsPixmapItem):
             self.winnerMenu.changeWinner(self.id)
             self.sw.setCurrentIndex(2)
             self.sw.removeWidget(self.parent)
-            self.parent.__del__()
-            self.parent.jw.kill()
+            self.parent.jw.stop()
