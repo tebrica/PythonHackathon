@@ -52,7 +52,6 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
         self.player1 = parent.player1
 
 
-
     def game_update(self):
 
         if not self.active:
@@ -137,6 +136,7 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
                     return
                 self.t = Thread(target=self.slow, args=(self.parent.player1,))
                 self.t.start()
+
 
             if self.y() > 950:
                 self.active = False

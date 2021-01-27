@@ -112,13 +112,14 @@ class igra(QFrame, QGraphicsScene):
 
         self.keys_pressed = set()
         self.setFocusPolicy(Qt.StrongFocus)
+        self.initProcess()
+        #self.doJob()
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
-        #elf.initThreads()
+        #self.initThreads()
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
-        #self.in_pipe1.send(self.keys_pressed)
 
     def keyReleaseEvent(self, event):
         self.keys_pressed.remove(event.key())
@@ -128,13 +129,14 @@ class igra(QFrame, QGraphicsScene):
         self.update()
 
     def game_update(self):
-        self.player1.game_update(self.keys_pressed)
-        self.player.game_update(self.keys_pressed)
-        self.background1.update()
-        self.background2.update()
+        self.doJob()
+        #self.player1.game_update(self.keys_pressed)
+        #self.player.game_update(self.keys_pressed)
+        #self.background1.update()
+        #self.background2.update()
 
-        for b in self.Objects:
-            b.game_update()
+        #for b in self.Objects:
+        #    b.game_update()
 
 
     def initThreads(self):
@@ -160,11 +162,22 @@ class igra(QFrame, QGraphicsScene):
 
     def initProcess(self):
         self.ex_pipe, self.in_pipe = mp.Pipe()
-        self.ex_pipe1, self.in_pipe1 = mp.Pipe()
-        self.ex_pipe2, self.in_pipe2 = mp.Pipe()
 
-        self.jw = jobWorker(self.in_pipe, self.ex_pipe1, self.in_pipe2)
+        self.jw = jobWorker(self.in_pipe)
         self.jw.start()
+
+    def doJob(self):
+        data = self.ex_pipe.recv()
+        if data == "go":
+            self.player1.game_update(self.keys_pressed)
+            self.player.game_update(self.keys_pressed)
+            self.background1.update()
+            self.background2.update()
+
+            for b in self.Objects:
+               b.game_update()
+
+            return
 
 
 class Worker(QObject):

@@ -41,3 +41,4 @@ class health(QLabel, QGraphicsPixmapItem):
             self.sw.setCurrentIndex(2)
             self.sw.removeWidget(self.parent)
             self.parent.__del__()
+            self.parent.jw.kill()
