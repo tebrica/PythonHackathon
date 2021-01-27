@@ -147,6 +147,8 @@ class igra(QFrame, QGraphicsScene):
         #    b.game_update()
 
     def initThreads(self):
+        self.last = 0
+
         while True:
             data = self.ex_pipeHS.recv()
             data1 = self.ex_pipeHS1.recv()
@@ -154,6 +156,14 @@ class igra(QFrame, QGraphicsScene):
                 self.highscore.scoreUpdate(data)
             if data1 != None:
                 self.highscore1.scoreUpdate(data1)
+
+            if int(data) % 100 == 0:
+                for ob in self.Objects:
+                    ob.speed = ob.speed + 1
+
+                self.background1.speed += 1
+                self.background2.speed += 1
+
 
     def initProcess(self):
 

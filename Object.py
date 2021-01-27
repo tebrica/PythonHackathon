@@ -39,6 +39,7 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
     def __init__(self, parent, x, y, pic):
 
         super(ObjectCar1, self).__init__(parent)
+        self.speed = 0
         self.parent = parent
         self.xPos = x
         self.yPos = y
@@ -58,7 +59,7 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
             self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1050, -100), self.dimX, self.dimY)
             self.active = True
         if self.active:
-            self.setGeometry(self.x(), self.y() + Object_SPEED, self.dimX, self.dimY)
+            self.setGeometry(self.x(), self.y() + Object_SPEED + self.speed, self.dimX, self.dimY)
             #kontakt plavog igraca i auta
             self.pozicijaPlayer = self.player.geometry()
             if(self.player.x() < self.x() + 85 and self.player.x() + 85 > self.x()) and\
@@ -103,6 +104,7 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
 
         super(ObjectCar3, self).__init__(parent)
         self.parent = parent
+        self.speed = 0
         self.xPos = x
         self.yPos = y
         self.active = False
@@ -119,7 +121,7 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
             self.active = True
             self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1050, -100), self.dimX, self.dimY)
         else:
-            self.setGeometry(self.x(), self.y() + ObjectCar_SPEED, self.dimX, self.dimY)
+            self.setGeometry(self.x(), self.y() + ObjectCar_SPEED + self.speed, self.dimX, self.dimY)
             # kontakt plavog igraca i prepreke
             self.pozicijaPlayer = self.player.geometry()
             if (self.player.x() < self.x() + 45 and self.player.x() + 45 > self.x()) and \
@@ -155,6 +157,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
     def __init__(self, parent, x, y, pic):
 
         super(ObjectShield, self).__init__(parent)
+        self.speed = 0
         self.parent = parent
         self.xPos = x
         self.yPos = y
@@ -175,7 +178,7 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
             self.active = True
             self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-2000, -1200), self.dimX, self.dimY)
         else:
-            self.setGeometry(self.x(), self.y() + ObjectShield_SPEED, self.dimX, self.dimY)
+            self.setGeometry(self.x(), self.y() + ObjectShield_SPEED + self.speed, self.dimX, self.dimY)
             # kontakt plavog igraca i prepreke
             self.pozicijaPlayer = self.player.geometry()
             if (self.player.x() < self.x() + 45 and self.player.x() + 45 > self.x()) and \

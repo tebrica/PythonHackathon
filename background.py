@@ -6,7 +6,7 @@ Background_SPEED = 2
 class background(QLabel, QGraphicsPixmapItem):
     def __init__(self, parent, y):
         super(background, self).__init__(parent)
-
+        self.speed = 0
         self.parent = parent
         self.YPosition = y
         self.pic = "Slike/background.png"
@@ -21,5 +21,5 @@ class background(QLabel, QGraphicsPixmapItem):
             self.YPosition = -900
             self.setGeometry(0, self.YPosition, self.dimX, self.dimY)
 
-        self.YPosition = self.YPosition + Background_SPEED
+        self.YPosition = self.YPosition + Background_SPEED + self.speed
         self.setGeometry(0, self.YPosition, self.dimX, self.dimY)
