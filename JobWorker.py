@@ -16,3 +16,6 @@ class jobWorker(Process):
             self.pipe.send("go")
             time.sleep(0.016)
 
+    def stop(self):
+        self.pipe.send("stop")
+        self.kill()
