@@ -128,6 +128,7 @@ class igra(QFrame, QGraphicsScene):
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
+        self.in_coin.send("car")
 
 
     def keyReleaseEvent(self, event):
@@ -160,11 +161,14 @@ class igra(QFrame, QGraphicsScene):
 
 
     def initProcess(self):
+
         self.ex_pipe, self.in_pipe = mp.Pipe()
         self.ex_pipeHS, self.in_pipeHS = mp.Pipe()
         self.ex_pipeHS1, self.in_pipeHS1 = mp.Pipe()
+        self.ex_coin, self.in_coin = mp.Pipe()
 
-        self.jw = jobWorker(self.in_pipe, self.in_pipeHS, self.in_pipeHS1)
+        self.jw = jobWorker(self.in_pipe, self.in_pipeHS, self.in_pipeHS1, self.ex_coin)
+
         self.jw.start()
 
     def doJob(self):
