@@ -128,8 +128,6 @@ class igra(QFrame, QGraphicsScene):
 
     def keyPressEvent(self, event):
         self.keys_pressed.add(event.key())
-        self.in_coin.send("car")
-
 
     def keyReleaseEvent(self, event):
         self.keys_pressed.remove(event.key())
@@ -148,7 +146,6 @@ class igra(QFrame, QGraphicsScene):
         #for b in self.Objects:
         #    b.game_update()
 
-
     def initThreads(self):
         while True:
             data = self.ex_pipeHS.recv()
@@ -157,8 +154,6 @@ class igra(QFrame, QGraphicsScene):
                 self.highscore.scoreUpdate(data)
             if data1 != None:
                 self.highscore1.scoreUpdate(data1)
-            time.sleep(0.1)
-
 
     def initProcess(self):
 
@@ -178,7 +173,7 @@ class igra(QFrame, QGraphicsScene):
             self.player.game_update(self.keys_pressed)
             self.background1.update()
             self.background2.update()
-
+            self.in_coin.send("None")
             for b in self.Objects:
                b.game_update()
         elif data == "stop":
