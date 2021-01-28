@@ -37,7 +37,6 @@ class CrazyCars(QMainWindow, UI):
             event.accept()
             os.kill()
 
-
         else:
             event.ignore()
 
