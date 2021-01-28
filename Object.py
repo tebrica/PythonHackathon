@@ -56,7 +56,7 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
     def game_update(self):
 
         if not self.active:
-            self.setGeometry(random.randrange(self.xPos, self.yPos), random.randrange(-1050, -100), self.dimX, self.dimY)
+            self.setGeometry(random.randrange(self.xPos + 100, self.yPos), random.randrange(-1050, -100), self.dimX, self.dimY)
             self.active = True
         if self.active:
             self.setGeometry(self.x(), self.y() + Object_SPEED + self.speed, self.dimX, self.dimY)
@@ -223,19 +223,6 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 #self.untouchable = False
                # self.setVisible(True)
 
-
-    def blink(self, player):
-        i = 0
-        player.untouchable = True
-        while (i < 8):
-            player.dimX = 0
-            player.dimY = 0
-            time.sleep(0.15)
-            player.dimX = 90
-            player.dimY = 170
-            time.sleep(0.15)
-            i = i + 1
-        player.untouchable = False
 
     def blinkShield(self, player):
         i = 0
