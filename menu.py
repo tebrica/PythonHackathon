@@ -25,9 +25,10 @@ class UI(QtWidgets.QWidget):
         #self.pairtest = ("player1test", "player2test")
         #self.pairstest.append(self.pairtest)
 
+        self.turnirUToku = False
 
         self.MenuUI()
-        self.gameOverScreen = GameOverScreen()
+        self.gameOverScreen = GameOverScreen(self)
         self.gameOverScreen.buttonRet.clicked.connect(lambda: self.gameOverScreen.returnHome(self.StackedWidgets))
 
         self.instructions = Instructions()
@@ -38,6 +39,7 @@ class UI(QtWidgets.QWidget):
         self.StackedWidgets.addWidget(self.gameOverScreen)
 
     def SetGame(self):
+        self.turnirUToku = True
         self.i = self.i +1
         print("Set game pair: " + str(self.pairs[self.currentPlayer]) )
 
@@ -64,6 +66,7 @@ class UI(QtWidgets.QWidget):
         if self.currentPlayer == int(self.igraci/2):
             if self.currentPlayer == 1:
                 print("Pobednik turnira je:" + playerWinner)
+                self.turnirUToku = False
                 self.currentPlayer = 0
                 self.players = None
                 self.winners = None
@@ -76,9 +79,6 @@ class UI(QtWidgets.QWidget):
             self.winners = None
             self.currentPlayer = 0
             self.makePairs()
-
-        self.SetGame()
-
 
 
     def MenuUI(self):

@@ -5,9 +5,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
 import winsound
 class GameOverScreen(QWidget):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
-        self.setFixedSize(1280,960)
+        self.parent = parent
+        self.setFixedSize(1280, 960)
 
         self.setStyleSheet("background-image: url(Slike/instructions.png)")
 
@@ -23,7 +24,10 @@ class GameOverScreen(QWidget):
 
 
     def returnHome(self, sw):
-        sw.setCurrentIndex(0)
+        if self.parent.turnirUToku:
+            self.parent.SetGame()
+        else:
+            sw.setCurrentIndex(0)
 
     def changeWinner(self, id, ):
         if(id == 1):
