@@ -3,7 +3,7 @@ from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
 from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
-
+import winsound
 class GameOverScreen(QWidget):
     def __init__(self):
         super().__init__()
@@ -31,3 +31,5 @@ class GameOverScreen(QWidget):
 
         else:
             self.setStyleSheet("background-image: url(Slike/player1win.png)")
+        name = 'Sound/GameOver.wav'
+        winsound.PlaySound(name, winsound.SND_ASYNC)

@@ -116,7 +116,7 @@ class igra(QFrame, QGraphicsScene):
                         Object.ObjectCar3(self, 580, 900, "Slike/prepreka1.png"),
                         Object.ObjectCar1(self, 150, 580, "Slike/car_green.png"),
                         Object.ObjectCar1(self, 580, 900, "Slike/car_orange.png"),
-                        Object.ObjectShield(self, 150, 580, "Slike/shield.png")]
+                        Object.ObjectShield(self, 150, 580, "Slike/Shieldd.png")]
 
         self.highscore = highscore(self, 15, 15, self.player)
         self.highscore1 = highscore(self, 1065, 15, self.player1)

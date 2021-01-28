@@ -3,7 +3,6 @@ from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
 from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
-
 from Game import Game
 from GameOverScreen import GameOverScreen
 
@@ -42,7 +41,6 @@ class UI(QtWidgets.QWidget):
         self.home.setFixedSize(1200, 850)
 
         layout = QHBoxLayout()
-
         oImage = QImage("Slike/background.png")
         sImage = oImage.scaled(QSize(1200, 928))  # resize Image to widgets size
         palette = QPalette()

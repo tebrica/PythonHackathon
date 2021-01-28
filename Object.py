@@ -1,6 +1,6 @@
 import time
 from threading import Thread
-
+import winsound
 from PyQt5.QtCore import (
     Qt,
     QBasicTimer,
@@ -68,6 +68,8 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
                 self.parent.health.HealthLoss()
                 if self.parent.player.untouchable:
                     return
+                name = 'Sound/Crash.wav'
+                winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.blink, args=(self.parent.player,))
                 self.t.start()
             # kontakt crvenog igraca i auta
@@ -78,6 +80,8 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
                 self.parent.health1.HealthLoss()
                 if self.parent.player1.untouchable:
                     return
+                name = 'Sound/Crash.wav'
+                winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.blink, args=(self.parent.player1,))
                 self.t.start()
             if self.y() > 950:
@@ -128,6 +132,8 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
                     (self.player.y() + 45 > self.y() and self.player.y() < self.y() + 45 and not self.parent.player.untouchable):
                 if self.parent.player.untouchable:
                     return
+                name = 'Sound/Slow.wav'
+                winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.slow, args=(self.parent.player,))
                 self.t.start()
             # kontakt crvenog igraca i prepreke
@@ -136,6 +142,8 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
                     (self.player1.y() + 45 > self.y() and self.player1.y() < self.y() + 45 and not self.parent.player1.untouchable):
                 if self.parent.player1.untouchable:
                     return
+                name = 'Sound/Slow.wav'
+                winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.slow, args=(self.parent.player1,))
                 self.t.start()
 
@@ -189,7 +197,8 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 #self.setVisible(False)
                 #self.untouchable = True
                 self.active = False
-
+                name = 'Sound/Shield.wav'
+                winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.blinkShield, args=(self.parent.player,))
                 self.t.start()
             # kontakt crvenog igraca i prepreke
@@ -202,7 +211,8 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 #self.setVisible(False)
                 #self.untouchable = True
                 self.active = False
-
+                name = 'Sound/Shield.wav'
+                winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.blinkShield, args=(self.parent.player1,))
                 self.t.start()
 

@@ -42,7 +42,6 @@ class CrazyCars(QMainWindow, UI):
     def openGame(self):
         self.SetGame()
 
-
     def openInstructions(self):
         self.StackedWidgets.setCurrentIndex(1)
 
