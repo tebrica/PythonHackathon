@@ -1,3 +1,5 @@
+import winsound
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
 from PyQt5.QtCore import QSize
@@ -9,6 +11,8 @@ from GameOverScreen import GameOverScreen
 class UI(QtWidgets.QWidget):
 
     def init(self):
+        name = 'Sound/Home.wav'
+        winsound.PlaySound(name, winsound.SND_ASYNC)
         self.i = 2
         self.StackedWidgets = QStackedWidget()
         self.home = QWidget()
