@@ -14,7 +14,6 @@ class CrazyCars(QMainWindow, UI):
         self.initUI()
         self.btn1.clicked.connect(self.openGame)
         self.btn2.clicked.connect(self.openInstructions)
- #       self.btn3.clicked.connect(self.openHighScore)
 
 
     def initUI(self):
@@ -36,6 +35,7 @@ class CrazyCars(QMainWindow, UI):
 
         if reply == QMessageBox.Yes:
             event.accept()
+
         else:
             event.ignore()
 
@@ -45,8 +45,6 @@ class CrazyCars(QMainWindow, UI):
     def openInstructions(self):
         self.StackedWidgets.setCurrentIndex(1)
 
-    def openHighScore(self):
-        sys.exit()
 
 if __name__=='__main__':
     app = QApplication(sys.argv)

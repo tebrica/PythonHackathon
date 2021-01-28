@@ -26,6 +26,7 @@ class UI(QtWidgets.QWidget):
         #self.pairstest.append(self.pairtest)
 
         self.turnirUToku = False
+        self.activePair = None
 
         self.MenuUI()
         self.gameOverScreen = GameOverScreen(self)
@@ -40,6 +41,7 @@ class UI(QtWidgets.QWidget):
 
     def SetGame(self):
         self.turnirUToku = True
+        self.activePair = self.pairs[self.currentPlayer]
         self.i = self.i +1
         print("Set game pair: " + str(self.pairs[self.currentPlayer]) )
 
@@ -134,11 +136,11 @@ class UI(QtWidgets.QWidget):
     def makeBracket(self):
         self.pairs = []
         if self.igraci == 2:
-            self.prayers = ["igrac1", "igrac2"]
+            self.prayers = ["Igrac 1", "Igrac 2"]
         elif self.igraci == 4:
-            self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4"]
+            self.prayers = ["Igrac 1", "Igrac 2", "Igrac 3", "Igrac 4"]
         elif self.igraci == 8:
-            self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4", "igrac5", "igrac6", "igrac7", "igrac8"]
+            self.prayers = ["Igrac 1", "Igrac 2", "Igrac 3", "Igrac 4", "Igrac 5", "Igrac 6", "Igrac 7", "Igrac 8"]
 
         print("--------MAKE Bracket-----------")
         self.lastChoice = self.igraci
