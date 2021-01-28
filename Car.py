@@ -70,12 +70,12 @@ class Player(QLabel, QGraphicsPixmapItem):
                 dy += PLAYER_SPEED
                 self.player = QPixmap(self.pic)
         elif self.right in keys_pressed:
-            if self.x() < SCREEN_WIDTH-250:
+            if self.x() < SCREEN_WIDTH-280:
                 dx += PLAYER_SPEED
                 self.player = QPixmap(self.picr)
                 self.setPixmap(self.player.scaled(self.dimX, self.dimY))
         elif self.left in keys_pressed:
-            if self.x() > 150:
+            if self.x() > 200:
                 dx -= PLAYER_SPEED
                 self.player = QPixmap(self.picl)
                 self.setPixmap(self.player.scaled(self.dimX, self.dimY))
