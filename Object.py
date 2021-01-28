@@ -62,8 +62,8 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
             self.setGeometry(self.x(), self.y() + Object_SPEED + self.speed, self.dimX, self.dimY)
             #kontakt plavog igraca i auta
             self.pozicijaPlayer = self.player.geometry()
-            if(self.player.x() < self.x() + 85 and self.player.x() + 85 > self.x()) and\
-                    (self.player.y() +160 > self.y() and self.player.y() < self.y() + 160 and not self.parent.player.untouchable):
+            if(self.player.x() < self.x() + 80 and self.player.x() + 80 > self.x()) and\
+                    (self.player.y() +150 > self.y() and self.player.y() < self.y() + 150 and not self.parent.player.untouchable):
                 self.player.setGeometry(800, 600, 90, 170)
                 self.parent.health.HealthLoss()
                 if self.parent.player.untouchable:
@@ -74,8 +74,8 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
                 self.t.start()
             # kontakt crvenog igraca i auta
             self.pozicijaPlayer1 = self.player1.geometry()
-            if (self.player1.x() < self.x() + 85 and self.player1.x() + 85 > self.x()) and \
-                    (self.player1.y() + 160 > self.y() and self.player1.y() < self.y() + 160 and not self.parent.player1.untouchable):
+            if (self.player1.x() < self.x() + 80 and self.player1.x() + 80 > self.x()) and \
+                    (self.player1.y() + 150 > self.y() and self.player1.y() < self.y() + 150 and not self.parent.player1.untouchable):
                 self.player1.setGeometry(400, 600, 90, 170)
                 self.parent.health1.HealthLoss()
                 if self.parent.player1.untouchable:
