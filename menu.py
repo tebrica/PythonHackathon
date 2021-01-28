@@ -2,7 +2,7 @@ import winsound
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QSize, QRect
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, random
 from Game import Game
@@ -162,7 +162,7 @@ class UI(QtWidgets.QWidget):
 
 
 class Instructions(QWidget):
-    def __init__(self,):
+    def __init__(self):
         super().__init__()
 
         self.setFixedSize(900, 700)
@@ -173,7 +173,9 @@ class Instructions(QWidget):
         self.buttonRet.setFixedSize(517, 630)
 
         layout = QHBoxLayout()
+
         layout.addWidget(self.buttonRet)
+        layout.setAlignment(QtCore.Qt.AlignCenter)
         self.setLayout(layout)
 
 

@@ -45,6 +45,7 @@ class CrazyCars(QMainWindow, UI):
 
     def openInstructions(self):
         self.StackedWidgets.setCurrentIndex(1)
+        self.StackedWidgets.setGeometry(160, 50, 700, 900)
 
 
 if __name__=='__main__':
