@@ -58,14 +58,14 @@ class UI(QtWidgets.QWidget):
 
         self.btn1 = QPushButton('Play', self.home)
         self.btn2 = QPushButton('Instructions', self.home)
-        self.btn3 = QPushButton('High Score', self.home)
+#       self.btn3 = QPushButton('High Score', self.home)
 
         self.btn1.setFixedSize(200, 80)
         self.btn2.setFixedSize(200, 80)
-        self.btn3.setFixedSize(200, 80)
+#        self.btn3.setFixedSize(200, 80)
         layout.addWidget(self.btn1)
         layout.addWidget(self.btn2)
-        layout.addWidget(self.btn3)
+#        layout.addWidget(self.btn3)
         layout.setAlignment(QtCore.Qt.AlignCenter)
 
         self.home.setLayout(layout)
@@ -115,12 +115,14 @@ class UI(QtWidgets.QWidget):
 class Instructions(QWidget):
     def __init__(self,):
         super().__init__()
-        self.setFixedSize(900, 600)
+
+        self.setFixedSize(900, 700)
 
         self.setStyleSheet("background-image: url(Slike/instructions.png)")
 
         self.buttonRet = QPushButton('',self)
         self.buttonRet.setFixedSize(517, 630)
+
 
         layout = QHBoxLayout()
         layout.addWidget(self.buttonRet)

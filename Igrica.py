@@ -14,7 +14,7 @@ class CrazyCars(QMainWindow, UI):
         self.initUI()
         self.btn1.clicked.connect(self.openGame)
         self.btn2.clicked.connect(self.openInstructions)
-        self.btn3.clicked.connect(self.openHighScore)
+ #       self.btn3.clicked.connect(self.openHighScore)
 
 
     def initUI(self):
