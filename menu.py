@@ -19,6 +19,7 @@ class UI(QtWidgets.QWidget):
 
         self.winners = None
         self.currentPlayer = 0
+        self.lastChoice = None
 
         #self.pairstest = []
         #self.pairtest = ("player1test", "player2test")
@@ -38,30 +39,42 @@ class UI(QtWidgets.QWidget):
 
     def SetGame(self):
         self.i = self.i +1
+        print("Set game pair: " + str(self.pairs[self.currentPlayer]) )
+
         self.game = Game(self.StackedWidgets, self.gameOverScreen, self.pairs[self.currentPlayer], self)
         self.StackedWidgets.addWidget(self.game)
         self.StackedWidgets.setCurrentIndex(self.i)
 
     def getWinner(self, playerWinner):
+        self.prayers = None
         print("--------GetWinner-----------")
         print ("Winner is: " + playerWinner)
         if self.winners == None:
             self.currentPlayer = 1
             self.winners = [None] * int(self.igraci/2)
-            print(len(self.winners))
+            print("Broj igraca winners: " + str(len(self.winners)))
         else:
             self.currentPlayer += 1
         self.winners[self.currentPlayer - 1] = playerWinner
 
+        print("--------Winners list----------")
+        print(self.winners)
+        print("--------############----------")
 
         if self.currentPlayer == int(self.igraci/2):
             if self.currentPlayer == 1:
-                print("Pobednik turnira je :" + playerWinner)
+                print("Pobednik turnira je:" + playerWinner)
                 self.currentPlayer = 0
+                self.players = None
+                self.winners = None
+                self.igraci = self.lastChoice
+                self.makeBracket()
+
                 return
             self.prayers = self.winners
             self.igraci = self.igraci / 2
             self.winners = None
+            self.currentPlayer = 0
             self.makePairs()
 
         self.SetGame()
@@ -80,6 +93,7 @@ class UI(QtWidgets.QWidget):
 
         self.combo = QComboBox(self)
         self.igraci = 2
+        self.lastChoice = 2
         self.combo.addItem("2 players")
         self.makeBracket()
         self.combo.addItem("4 players")
@@ -125,7 +139,9 @@ class UI(QtWidgets.QWidget):
             self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4"]
         elif self.igraci == 8:
             self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4", "igrac5", "igrac6", "igrac7", "igrac8"]
+
         print("--------MAKE Bracket-----------")
+        self.lastChoice = self.igraci
         self.makePairs()
         print("-------------------------------")
 
@@ -134,7 +150,7 @@ class UI(QtWidgets.QWidget):
             rand1 = self.pop_random()
             rand2 = self.pop_random()
             pair = rand1, rand2
-            print("Par: " + pair[0] + " | " + pair[1] )
+            print("Par: " + pair[0] + " | " + pair[1])
             self.pairs.append(pair)
 
     def pop_random(self):
