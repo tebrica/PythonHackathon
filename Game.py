@@ -37,12 +37,12 @@ from PyQt5.QtWidgets import (
 
 class Game(QMainWindow):
 
-    def __init__(self, sw, wm, player1, player2, mec):
+    def __init__(self, sw, wm, par , mec):
         super().__init__()
         self.sw = sw
         self.wm = wm
-        self.player1 = player1
-        self.player2 = player2
+        self.player1 = par[0]
+        self.player2 = par[1]
         self.mec = mec
         self.initUI()
 

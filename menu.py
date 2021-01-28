@@ -13,6 +13,14 @@ class UI(QtWidgets.QWidget):
         self.StackedWidgets = QStackedWidget()
         self.home = QWidget()
 
+        self.winners = None
+        self.currentPlayer = 0
+
+        #self.pairstest = []
+        #self.pairtest = ("player1test", "player2test")
+        #self.pairstest.append(self.pairtest)
+
+
         self.MenuUI()
         self.gameOverScreen = GameOverScreen()
         self.gameOverScreen.buttonRet.clicked.connect(lambda: self.gameOverScreen.returnHome(self.StackedWidgets))
@@ -26,14 +34,33 @@ class UI(QtWidgets.QWidget):
 
     def SetGame(self):
         self.i = self.i +1
-        self.player1 = "Plavi"
-        self.player2 = "Crveni"
-        self.game = Game(self.StackedWidgets, self.gameOverScreen, self.player1, self.player2, self)
+        self.game = Game(self.StackedWidgets, self.gameOverScreen, self.pairs[self.currentPlayer], self)
         self.StackedWidgets.addWidget(self.game)
         self.StackedWidgets.setCurrentIndex(self.i)
 
     def getWinner(self, playerWinner):
+        print("--------GetWinner-----------")
         print ("Winner is: " + playerWinner)
+        if self.winners == None:
+            self.currentPlayer = 1
+            self.winners = [None] * int(self.igraci/2)
+            print(len(self.winners))
+        else:
+            self.currentPlayer += 1
+        self.winners[self.currentPlayer - 1] = playerWinner
+
+
+        if self.currentPlayer == int(self.igraci/2):
+            if self.currentPlayer == 1:
+                print("Pobednik turnira je :" + playerWinner)
+                self.currentPlayer = 0
+                return
+            self.prayers = self.winners
+            self.igraci = self.igraci / 2
+            self.winners = None
+            self.makePairs()
+
+        self.SetGame()
 
 
 
@@ -94,16 +121,16 @@ class UI(QtWidgets.QWidget):
             self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4"]
         elif self.igraci == 8:
             self.prayers = ["igrac1", "igrac2", "igrac3", "igrac4", "igrac5", "igrac6", "igrac7", "igrac8"]
-
+        print("--------MAKE Bracket-----------")
         self.makePairs()
+        print("-------------------------------")
 
     def makePairs(self):
         while self.prayers:
             rand1 = self.pop_random()
             rand2 = self.pop_random()
             pair = rand1, rand2
-            print (pair)
-            print ("----------------")
+            print("Par: " + pair[0] + " | " + pair[1] )
             self.pairs.append(pair)
 
     def pop_random(self):
