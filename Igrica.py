@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QImage, QPalette, QBrush
 from PyQt5.QtCore import QSize
 from PyQt5 import QtCore, QtGui
-import sys, random
+import sys, random, os
 from menu import UI
 from Game import Game
 
@@ -35,6 +35,8 @@ class CrazyCars(QMainWindow, UI):
 
         if reply == QMessageBox.Yes:
             event.accept()
+            os.kill()
+
 
         else:
             event.ignore()
