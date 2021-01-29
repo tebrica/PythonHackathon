@@ -59,7 +59,6 @@ class Player(QLabel, QGraphicsPixmapItem):
             PLAYER_SPEED = 2
         else:
             PLAYER_SPEED = 5
-        #if newX < Board.BoardWidth - 330 and newX > 220:
 
         if self.up in keys_pressed:
             if self.y() > 100:

@@ -37,7 +37,6 @@ import random
 
 class ObjectCar1(QLabel, QGraphicsPixmapItem):
     def __init__(self, parent, x, y, pic):
-
         super(ObjectCar1, self).__init__(parent)
         self.speed = 0
         self.parent = parent
@@ -51,7 +50,6 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
         self.setPixmap(player.scaled(self.dimX, self.dimY))
         self.player = parent.player
         self.player1 = parent.player1
-
 
     def game_update(self):
 
@@ -72,6 +70,7 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
                 winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.blink, args=(self.parent.player,))
                 self.t.start()
+
             # kontakt crvenog igraca i auta
             self.pozicijaPlayer1 = self.player1.geometry()
             if (self.player1.x() < self.x() + 80 and self.player1.x() + 80 > self.x()) and \
@@ -100,7 +99,6 @@ class ObjectCar1(QLabel, QGraphicsPixmapItem):
             time.sleep(0.15)
             i = i + 1
         player.untouchable = False
-
 
 
 class ObjectCar3(QLabel, QGraphicsPixmapItem):
@@ -136,6 +134,7 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
                 winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.slow, args=(self.parent.player,))
                 self.t.start()
+
             # kontakt crvenog igraca i prepreke
             self.pozicijaPlayer1 = self.player1.geometry()
             if (self.player1.x() < self.x() + 45 and self.player1.x() + 45 > self.x()) and \
@@ -146,7 +145,6 @@ class ObjectCar3(QLabel, QGraphicsPixmapItem):
                 winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.slow, args=(self.parent.player1,))
                 self.t.start()
-
 
             if self.y() > 950:
                 self.active = False
@@ -194,13 +192,12 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 if self.parent.player.untouchable:
                     return
 
-                #self.setVisible(False)
-                #self.untouchable = True
                 self.active = False
                 name = 'Sound/Shield.wav'
                 winsound.PlaySound(name, winsound.SND_ASYNC)
                 self.t = Thread(target=self.blinkShield, args=(self.parent.player,))
                 self.t.start()
+
             # kontakt crvenog igraca i prepreke
             self.pozicijaPlayer1 = self.player1.geometry()
             if (self.player1.x() < self.x() + 45 and self.player1.x() + 45 > self.x()) and \
@@ -208,8 +205,6 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
                 if self.parent.player1.untouchable:
                     return
 
-                #self.setVisible(False)
-                #self.untouchable = True
                 self.active = False
                 name = 'Sound/Shield.wav'
                 winsound.PlaySound(name, winsound.SND_ASYNC)
@@ -220,8 +215,6 @@ class ObjectShield(QLabel, QGraphicsPixmapItem):
             if self.y() > 2250:
                 self.active = False
                 self.setGeometry(SCREEN_WIDTH, SCREEN_HEIGHT, self.dimX, self.dimY)
-                #self.untouchable = False
-               # self.setVisible(True)
 
 
     def blinkShield(self, player):

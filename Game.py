@@ -55,14 +55,6 @@ class Game(QMainWindow):
         self.setWindowTitle('Crazy Cars')
         self.setWindowIcon(QIcon("Slike/cc.jpg"))
 
-
-        # setting background picture
-        oImage = QImage("Slike/testBG.png")
-        sImage = oImage.scaled(1200, 850)
-        palette = QPalette()
-        palette.setBrush(10, QBrush(sImage))
-        self.setPalette(palette)
-
         self.show()
 
     # method for centering main window
@@ -130,11 +122,8 @@ class igra(QFrame, QGraphicsScene):
         self.initProcess()
         self.t = threading.Thread(target=self.initThreads, args=())
         self.t.start()
-        #self.doJob()
         self.timer = QBasicTimer()
         self.timer.start(FRAME_TIME_MS, self)
-        #self.initThreads()
-
 
 
     def keyPressEvent(self, event):
@@ -145,20 +134,12 @@ class igra(QFrame, QGraphicsScene):
         except:
             return
 
-
     def timerEvent(self, event):
         self.game_update()
         self.update()
 
     def game_update(self):
         self.doJob()
-        #self.player1.game_update(self.keys_pressed)
-        #self.player.game_update(self.keys_pressed)
-        #self.background1.update()
-        #self.background2.update()
-
-        #for b in self.Objects:
-        #    b.game_update()
 
     def initThreads(self):
         self.last = 0
@@ -184,9 +165,8 @@ class igra(QFrame, QGraphicsScene):
         self.ex_pipe, self.in_pipe = mp.Pipe()
         self.ex_pipeHS, self.in_pipeHS = mp.Pipe()
         self.ex_pipeHS1, self.in_pipeHS1 = mp.Pipe()
-        self.ex_coin, self.in_coin = mp.Pipe()
 
-        self.jw = jobWorker(self.in_pipe, self.in_pipeHS, self.in_pipeHS1, self.ex_coin)
+        self.jw = jobWorker(self.in_pipe, self.in_pipeHS, self.in_pipeHS1)
 
         self.jw.start()
 
@@ -197,7 +177,7 @@ class igra(QFrame, QGraphicsScene):
             self.player.game_update(self.keys_pressed)
             self.background1.update()
             self.background2.update()
-            self.in_coin.send("None")
+
             for b in self.Objects:
                b.game_update()
         elif data == "stop":
@@ -207,33 +187,3 @@ class igra(QFrame, QGraphicsScene):
 
     def returnWinner(self):
         self.parent.vratiPobednika(self.playerWinner)
-
-
-
-
-class Worker(QObject):
-    finished = pyqtSignal()
-    progress = pyqtSignal(int)
-    def __init__(self, pipe: Pipe, player: Car.Player, keysPressed, pipe1: Pipe, Objects):
-        super().__init__()
-        self.Objects = Objects
-        self.pipe1 = pipe1
-        self.pipe = pipe
-        self.player = player
-        self.keysPressed = keysPressed
-
-    def threadJobPlayer(self):
-        while True:
-            self.player.game_update(self.pipe.recv())
-            time.sleep(0.0167)
-
-    def threadJobPlayer1(self):
-        while True:
-            self.player.game_update(self.pipe1.recv())
-            time.sleep(0.0167)
-
-    def updateObjects(self):
-        while True:
-            for b in self.Objects:
-                b.game_update()
-            time.sleep(0.0167)

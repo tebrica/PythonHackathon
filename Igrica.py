@@ -8,7 +8,7 @@ from Game import Game
 
 class CrazyCars(QMainWindow, UI):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None): #Batman vibes
         super(CrazyCars, self).__init__(parent)
         self.init()
         self.initUI()

@@ -17,14 +17,10 @@ class UI(QtWidgets.QWidget):
         self.StackedWidgets = QStackedWidget()
         self.home = QWidget()
 
+        #Turnir
         self.winners = None
         self.currentPlayer = 0
         self.lastChoice = None
-
-        #self.pairstest = []
-        #self.pairtest = ("player1test", "player2test")
-        #self.pairstest.append(self.pairtest)
-
         self.turnirUToku = False
         self.activePair = None
 
@@ -56,7 +52,7 @@ class UI(QtWidgets.QWidget):
         if self.winners == None:
             self.currentPlayer = 1
             self.winners = [None] * int(self.igraci/2)
-            print("Broj igraca winners: " + str(len(self.winners)))
+            #print("Broj igraca winners: " + str(len(self.winners)))
         else:
             self.currentPlayer += 1
         self.winners[self.currentPlayer - 1] = playerWinner
@@ -74,14 +70,13 @@ class UI(QtWidgets.QWidget):
                 self.winners = None
                 self.igraci = self.lastChoice
                 self.makeBracket()
-
                 return
+
             self.prayers = self.winners
             self.igraci = self.igraci / 2
             self.winners = None
             self.currentPlayer = 0
             self.makePairs()
-
 
     def MenuUI(self):
         self.home.setFixedSize(1200, 850)
@@ -105,14 +100,11 @@ class UI(QtWidgets.QWidget):
 
         self.btn1 = QPushButton('Play', self.home)
         self.btn2 = QPushButton('Instructions', self.home)
-#       self.btn3 = QPushButton('High Score', self.home)
 
         self.btn1.setFixedSize(200, 80)
         self.btn2.setFixedSize(200, 80)
-#        self.btn3.setFixedSize(200, 80)
         layout.addWidget(self.btn1)
         layout.addWidget(self.btn2)
-#        layout.addWidget(self.btn3)
         layout.setAlignment(QtCore.Qt.AlignCenter)
 
         self.home.setLayout(layout)
@@ -158,8 +150,6 @@ class UI(QtWidgets.QWidget):
     def pop_random(self):
         idx = random.randrange(0, len(self.prayers))
         return self.prayers.pop(idx)
-
-
 
 class Instructions(QWidget):
     def __init__(self):
