@@ -52,11 +52,9 @@ class UI(QtWidgets.QWidget):
         if self.winners == None:
             self.currentPlayer = 1
             self.winners = [None] * int(self.igraci/2)
-            #print("Broj igraca winners: " + str(len(self.winners)))
         else:
             self.currentPlayer += 1
         self.winners[self.currentPlayer - 1] = playerWinner
-
         print("---------- Winners list -----------")
         print(self.winners)
         print("-----------------------------------")
