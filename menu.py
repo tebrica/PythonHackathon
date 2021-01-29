@@ -47,8 +47,8 @@ class UI(QtWidgets.QWidget):
 
     def getWinner(self, playerWinner):
         self.prayers = None
-        print("--------GetWinner-----------")
-        print ("Winner is: " + playerWinner)
+        print("----------- GetWinner -------------")
+        print("Winner is: " + playerWinner)
         if self.winners == None:
             self.currentPlayer = 1
             self.winners = [None] * int(self.igraci/2)
@@ -57,13 +57,15 @@ class UI(QtWidgets.QWidget):
             self.currentPlayer += 1
         self.winners[self.currentPlayer - 1] = playerWinner
 
-        print("--------Winners list----------")
+        print("---------- Winners list -----------")
         print(self.winners)
-        print("--------############----------")
+        print("-----------------------------------")
 
         if self.currentPlayer == int(self.igraci/2):
             if self.currentPlayer == 1:
-                print("Pobednik turnira je:" + playerWinner)
+                print("###################################")
+                print("POBEDNIK TURNIRA JE: " + playerWinner)
+                print("###################################")
                 self.turnirUToku = False
                 self.currentPlayer = 0
                 self.players = None
@@ -76,7 +78,9 @@ class UI(QtWidgets.QWidget):
             self.igraci = self.igraci / 2
             self.winners = None
             self.currentPlayer = 0
+            self.pairs = []
             self.makePairs()
+
 
     def MenuUI(self):
         self.home.setFixedSize(1200, 850)
@@ -134,17 +138,17 @@ class UI(QtWidgets.QWidget):
         elif self.igraci == 8:
             self.prayers = ["Igrac 1", "Igrac 2", "Igrac 3", "Igrac 4", "Igrac 5", "Igrac 6", "Igrac 7", "Igrac 8"]
 
-        print("--------MAKE Bracket-----------")
+        print("----------- makeBracket -----------")
         self.lastChoice = self.igraci
         self.makePairs()
-        print("-------------------------------")
+        print("-----------------------------------")
 
     def makePairs(self):
         while self.prayers:
             rand1 = self.pop_random()
             rand2 = self.pop_random()
             pair = rand1, rand2
-            print("Par: " + pair[0] + " | " + pair[1])
+            print("makePairs: " + pair[0] + " | " + pair[1])
             self.pairs.append(pair)
 
     def pop_random(self):

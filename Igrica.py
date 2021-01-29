@@ -31,7 +31,7 @@ class CrazyCars(QMainWindow, UI):
        self.stackedWidgets.setCurrentIndex(2)
 
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'Message',"Are you sure you want to quit?", QMessageBox.Yes |  QMessageBox.No, QMessageBox.No)
+        reply = QMessageBox.question(self, 'Message', "Are you sure you want to quit?", QMessageBox.Yes |  QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
             event.accept()
